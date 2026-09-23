@@ -17,13 +17,40 @@ export class CartService {
   private ordersSubject = new BehaviorSubject<any[]>([]);
   public orders$ = this.ordersSubject.asObservable();
 
-  public guest: any = null;
-  public user: any = null;
+  public guest: any = this.loadGuestFromStorage();
+  public user: any = this.loadUserFromStorage();
+
+  private loadGuestFromStorage(): any {
+    try {
+      const stored = localStorage.getItem('guest');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  private loadUserFromStorage(): any {
+    try {
+      const stored = localStorage.getItem('user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  }
 
   setUser(userData: any) {
     this.user = userData;
     if (userData === null) {
+      try {
+        localStorage.removeItem('user');
+      } catch {}
       this.fetchMyOrders().subscribe();
+    } else {
+      try {
+        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.removeItem('guest');
+      } catch {}
+      this.guest = null;
     }
   }
 
@@ -48,6 +75,9 @@ export class CartService {
       tap({
         next: (guest) => {
           this.guest = guest;
+          try {
+            localStorage.setItem('guest', JSON.stringify(guest));
+          } catch {}
           this.fetchCart();
         },
         error: (err) => {

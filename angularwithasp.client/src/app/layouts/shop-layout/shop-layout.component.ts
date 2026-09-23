@@ -17,6 +17,10 @@ export class ShopLayoutComponent implements OnInit {
   backCss: string = 'soccerBaseBg soccerBg1';
   private cartService = inject(CartService);
 
+  get isGuestReady(): string {
+    return this.cartService.getGuestId() ? 'true' : 'false';
+  }
+
   ngOnInit() {
     this.cartService.init();
   }

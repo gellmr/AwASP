@@ -66,6 +66,31 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
       next: (res) => {
         this.orders = res.rows || [];
 
+        // Update Guest/User Info from the fetched orders if available
+        if (this.orders.length > 0) {
+          const firstOrder = this.orders[0];
+          if (firstOrder.guest) {
+            this.fullname = firstOrder.guest.fullName || firstOrder.guest.fullname || '';
+            this.email = firstOrder.guest.email || '';
+            this.idval = firstOrder.guest.id || '';
+            this.accType = 'Guest';
+            
+            // Sync it back to the global cart service guest so other components can use it
+            this.cartService.guest = {
+              id: this.idval,
+              fullname: this.fullname,
+              email: this.email,
+              firstname: firstOrder.guest.firstName || firstOrder.guest.firstname || '',
+              lastname: firstOrder.guest.lastName || firstOrder.guest.lastname || ''
+            };
+          } else if (firstOrder.appUser) {
+            this.fullname = firstOrder.appUser.fullName || firstOrder.appUser.fullname || '';
+            this.email = firstOrder.appUser.email || '';
+            this.idval = firstOrder.appUser.id || '';
+            this.accType = firstOrder.accountType || 'User';
+          }
+        }
+
         const ordersPerPage = 3;
         const ordersCount = this.orders.length;
         const wholePages = Math.floor(ordersCount / ordersPerPage);

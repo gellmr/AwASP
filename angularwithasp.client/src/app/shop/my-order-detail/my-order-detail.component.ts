@@ -49,8 +49,8 @@ export class MyOrderDetailComponent implements OnInit, OnDestroy {
     // Get guest info
     const guest = this.cartService.guest;
     if (guest) {
-      this.fullname = guest.fullname;
-      this.email = guest.email;
+      this.fullname = guest.fullname || guest.fullName || '';
+      this.email = guest.email || '';
       this.accType = 'Guest';
       this.idval = guest.id;
     }
@@ -58,6 +58,7 @@ export class MyOrderDetailComponent implements OnInit, OnDestroy {
     this.sub.add(this.cartService.orders$.subscribe(orders => {
       if (orders && orders.length > 0) {
         this.ord = orders.find((o: any) => o.id.toString() === this.orderid);
+        this.updateAccountInfoFromOrder();
         this.isLoading = false;
         this.cdr.markForCheck();
       } else {
@@ -66,6 +67,7 @@ export class MyOrderDetailComponent implements OnInit, OnDestroy {
           next: (res) => {
             const fetchedOrders = res.rows || [];
             this.ord = fetchedOrders.find((o: any) => o.id.toString() === this.orderid);
+            this.updateAccountInfoFromOrder();
             this.isLoading = false;
             this.cdr.markForCheck();
           },
@@ -77,6 +79,30 @@ export class MyOrderDetailComponent implements OnInit, OnDestroy {
         });
       }
     }));
+  }
+
+  updateAccountInfoFromOrder() {
+    if (this.ord) {
+      if (this.ord.guest) {
+        this.fullname = this.ord.guest.fullName || this.ord.guest.fullname || '';
+        this.email = this.ord.guest.email || '';
+        this.idval = this.ord.guest.id || '';
+        this.accType = 'Guest';
+
+        this.cartService.guest = {
+          id: this.idval,
+          fullname: this.fullname,
+          email: this.email,
+          firstname: this.ord.guest.firstName || this.ord.guest.firstname || '',
+          lastname: this.ord.guest.lastName || this.ord.guest.lastname || ''
+        };
+      } else if (this.ord.appUser) {
+        this.fullname = this.ord.appUser.fullName || this.ord.appUser.fullname || '';
+        this.email = this.ord.appUser.email || '';
+        this.idval = this.ord.appUser.id || '';
+        this.accType = this.ord.accountType || 'User';
+      }
+    }
   }
 
   addressSegment(seg: string, isFinal: boolean = false): string {
