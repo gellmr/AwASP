@@ -103,10 +103,9 @@ Write-Host "[3/3] Updating Firebase Hosting proxy..."
 if (!(Test-Path "proxypub")) {
     New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot "proxypub") | Out-Null
 }
-$ConfigPath = Join-Path $PSScriptRoot "firebase.json"
 
 # Attempt to deploy using cached credentials
-& cmd /c "npx firebase-tools deploy --only hosting --config `"$ConfigPath`" --project awasp-gcp"
+& cmd /c "npx firebase-tools deploy --only hosting:awasp-gcp --config firebase.json --project awasp-gcp"
 
 # If it fails due to authentication, prompt for login once and retry
 if ($LASTEXITCODE -ne 0) {
@@ -114,12 +113,12 @@ if ($LASTEXITCODE -ne 0) {
     & cmd /c "npx firebase-tools login"
     
     # Retry deployment after successful login
-    & cmd /c "npx firebase-tools deploy --only hosting --config `"$ConfigPath`" --project awasp-gcp"
+    & cmd /c "npx firebase-tools deploy --only hosting:awasp-gcp --config firebase.json --project awasp-gcp"
 }
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "`nRedeploy complete!" -ForegroundColor Cyan
-    $Url = gcloud run services describe $ServiceName --region$Region --format="value(status.url)"
+    $Url = gcloud run services describe $ServiceName --region $Region --format="value(status.url)"
     Write-Host "Your app is live at: $Url" -ForegroundColor Green
 } else {
     Write-Error "Firebase hosting deployment failed!"
