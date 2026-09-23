@@ -6,6 +6,9 @@ bin/Debug/**
 obj/**
 bin/**
 
+# Ignore backend seed data file
+seed-data.json
+
 # Dont track .pubxml files they can contain sensitive information
 *.pubxml
 *.pubxml.user
