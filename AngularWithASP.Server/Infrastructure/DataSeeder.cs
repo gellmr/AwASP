@@ -200,7 +200,7 @@ namespace AngularWithASP.Server.Infrastructure
         // [dbo].[Guests]      does not need us to set IDENTITY_INSERT on, as it already allows PK insertion.
         AppUsers = new List<AppUser> { vipAppUser }; _context.Users.Add(vipAppUser); _context.SaveChanges();
         appUserDTOs = _config.GetSection("users").Get<List<AppUserSeederDTO>>();
-        for (int u = 0; u < 39; u++) { SeedAppUsers(u); }
+        for (int u = 0; u < (appUserDTOs?.Count ?? 0); u++) { SeedAppUsers(u); }
       }
       catch (Exception ex)
       {
@@ -214,7 +214,7 @@ namespace AngularWithASP.Server.Infrastructure
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Orders] ON;");
         Orders = new List<Order>();
         orderDTOs = _config.GetSection("orders").Get<List<OrderSeederDTO>>();
-        for (int oidx = 0; oidx < 70; oidx++) { SeedOrders(oidx); }
+        for (int oidx = 0; oidx < (orderDTOs?.Count ?? 0); oidx++) { SeedOrders(oidx); }
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Orders] OFF;");
       }
       catch(Exception ex)
@@ -229,7 +229,7 @@ namespace AngularWithASP.Server.Infrastructure
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[InStockProducts] ON;");
         InStockProducts = new List<InStockProduct>();
         inStockDTOs = _config.GetSection("instockproducts").Get<List<InStockProductSeederDTO>>();
-        for (int pIdx = 0; pIdx < 27; pIdx++) { SeedInStockProducts(pIdx); }
+        for (int pIdx = 0; pIdx < (inStockDTOs?.Count ?? 0); pIdx++) { SeedInStockProducts(pIdx); }
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[InStockProducts] OFF;");
       }
       catch (Exception ex)
@@ -244,7 +244,7 @@ namespace AngularWithASP.Server.Infrastructure
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[OrderedProducts] ON;");
         OrderedProducts = new List<OrderedProduct>();
         orderedProductDTOs = _config.GetSection("orderedproducts").Get<List<OrderedProductSeederDTO>>();
-        for (int idx = 0; idx < 200; idx++) { SeedOrderedProduct(idx); }
+        for (int idx = 0; idx < (orderedProductDTOs?.Count ?? 0); idx++) { SeedOrderedProduct(idx); }
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[OrderedProducts] OFF;");
       }
       catch (Exception ex)
@@ -259,7 +259,7 @@ namespace AngularWithASP.Server.Infrastructure
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[OrderPayments] ON;");
         OrderPayments = new List<OrderPayment>();
         orderPaymentDTOs = _config.GetSection("orderpayments").Get<List<OrderPaymentSeederDTO>>();
-        for (int idx = 0; idx < 46; idx++) { SeedOrderPayment(idx); }
+        for (int idx = 0; idx < (orderPaymentDTOs?.Count ?? 0); idx++) { SeedOrderPayment(idx); }
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[OrderPayments] OFF;");
       }
       catch (Exception ex)
