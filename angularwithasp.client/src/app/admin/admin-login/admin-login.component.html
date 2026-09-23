@@ -15,14 +15,14 @@
         <!-- Username Input -->
         <div class="col-12 col-md-6 mb-3" style="text-align: left;">
           <label class="form-label">&nbsp;&nbsp;Username</label>
-          <input type="email" class="form-control" placeholder="Please enter your username" [(ngModel)]="vipUserName" name="username" />
+          <input id="formGroupEmail" type="email" class="form-control" placeholder="Please enter your username" [(ngModel)]="vipUserName" name="username" />
         </div>
 
         <!-- Password Input -->
         <div class="col-12 col-md-6 mb-3" style="text-align: left;">
           <label class="form-label">&nbsp;&nbsp;Password</label>
           <div class="input-group">
-            <input type="password" class="form-control" placeholder="Enter your password" [(ngModel)]="vipPassword" name="password" (keydown)="handleKeyDown($event)" />
+            <input id="formGroupPassword" type="password" class="form-control" placeholder="Enter your password" [(ngModel)]="vipPassword" name="password" (keydown)="handleKeyDown($event)" />
             <button id="loginSubmit" type="submit" class="btn btn-outline-primary" style="min-width: 90px;" [disabled]="isLoading">Login</button>
           </div>
         </div>
