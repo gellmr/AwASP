@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "NUnitTests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Test"
+      }
+    }
+  }
+}
