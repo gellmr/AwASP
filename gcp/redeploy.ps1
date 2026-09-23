@@ -23,6 +23,13 @@ $DbPassword = $null
 $GoogleClientId = $null
 $GoogleClientSecret = $null
 
+$VipPassword     = $null
+$VipUserName     = $null
+$VipEmail        = $null
+$VipId           = $null
+$VipPasswordHash = $null
+$VipPhoneNumber  = $null
+
 if (-not (Test-Path $SecretsFile)) {
     Write-Error "Secrets file not found at $SecretsFile!"
     exit 1
@@ -33,9 +40,23 @@ $matchDb = $secretsContent | Select-String -Pattern "^DB_PASSWORD=(.*)$"
 $matchGClientId = $secretsContent | Select-String -Pattern "^GOOGLE_CLIENT_ID=(.*)$"
 $matchGSecret = $secretsContent | Select-String -Pattern "^GOOGLE_CLIENT_SECRET=(.*)$"
 
+$matchVipPw    = $secretsContent | Select-String -Pattern "^Authentication__VIP__Password=(.*)$"
+$matchVipUser  = $secretsContent | Select-String -Pattern "^Authentication__VIP__UserName=(.*)$"
+$matchVipEmail = $secretsContent | Select-String -Pattern "^Authentication__VIP__Email=(.*)$"
+$matchVipId    = $secretsContent | Select-String -Pattern "^Authentication__VIP__Id=(.*)$"
+$matchVipHash  = $secretsContent | Select-String -Pattern "^Authentication__VIP__PasswordHash=(.*)$"
+$matchVipPhone = $secretsContent | Select-String -Pattern "^Authentication__VIP__PhoneNumber=(.*)$"
+
 if ($matchDb) { $DbPassword = $matchDb.Matches.Groups[1].Value.Trim() }
 if ($matchGClientId) { $GoogleClientId = $matchGClientId.Matches.Groups[1].Value.Trim() }
 if ($matchGSecret) { $GoogleClientSecret = $matchGSecret.Matches.Groups[1].Value.Trim() }
+
+if ($matchVipPw)    { $VipPassword     = $matchVipPw.Matches.Groups[1].Value.Trim() }
+if ($matchVipUser)  { $VipUserName     = $matchVipUser.Matches.Groups[1].Value.Trim() }
+if ($matchVipEmail) { $VipEmail        = $matchVipEmail.Matches.Groups[1].Value.Trim() }
+if ($matchVipId)    { $VipId           = $matchVipId.Matches.Groups[1].Value.Trim() }
+if ($matchVipHash)  { $VipPasswordHash = $matchVipHash.Matches.Groups[1].Value.Trim() }
+if ($matchVipPhone) { $VipPhoneNumber  = $matchVipPhone.Matches.Groups[1].Value.Trim() }
 
 if ([string]::IsNullOrWhiteSpace($DbPassword) -or [string]::IsNullOrWhiteSpace($GoogleClientId) -or [string]::IsNullOrWhiteSpace($GoogleClientSecret)) {
     Write-Error "Missing required secrets (DB_PASSWORD, GOOGLE_CLIENT_ID, or GOOGLE_CLIENT_SECRET) in $SecretsFile."
@@ -68,7 +89,11 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "`n[2/2] Deploying image to Cloud Run..." -ForegroundColor Green
 # We deploy and pass all the necessary environment variables securely
-gcloud run deploy $ServiceName --image $ImageTag --region $Region --allow-unauthenticated --set-env-vars="ConnectionStrings__StoreContext=$ConnectionString,Authentication__Google__ClientId=$GoogleClientId,Authentication__Google__ClientSecret=$GoogleClientSecret,GCP__StorageBucketName=$BucketName,RUN_MIGRATIONS=true"
+gcloud run deploy $ServiceName `
+  --image $ImageTag `
+  --region $Region `
+  --allow-unauthenticated `
+  --set-env-vars="ConnectionStrings__StoreContext=$ConnectionString,Authentication__Google__ClientId=$GoogleClientId,Authentication__Google__ClientSecret=$GoogleClientSecret,GCP__StorageBucketName=$BucketName,RUN_MIGRATIONS=true,Authentication__VIP__Password=$VipPassword,Authentication__VIP__UserName=$VipUserName,Authentication__VIP__Email=$VipEmail,Authentication__VIP__Id=$VipId,Authentication__VIP__PasswordHash=$VipPasswordHash,Authentication__VIP__PhoneNumber=$VipPhoneNumber"
 
 Write-Host "[3/3] Updating Firebase Hosting proxy..."
 # Ensure the proxy public folder exists so Firebase deploy doesn't fail
