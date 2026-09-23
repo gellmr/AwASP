@@ -285,8 +285,13 @@ namespace AngularWithASP.Server.Infrastructure
 
     private void SeedAppUsers(int u)
     {
-      AppUserSeederDTO dto = appUserDTOs[u];
-      string[] splitName = dto.UserName.Split(" ");
+      AppUserSeederDTO? dto = appUserDTOs?[u];
+      if (dto == null) return;
+
+      // Handle potential null UserName gracefully
+      string userName = dto.UserName ?? "Default User";
+      string[] splitName = userName.Split(" ");
+      
       string? appUserId = (dto.Id == null) ? string.Empty : dto.Id.ToString().ToLower();
       if (dto.IsGuest == false)
       {
@@ -313,13 +318,15 @@ namespace AngularWithASP.Server.Infrastructure
       }
       else
       {
+
         Guest? guest = new Guest{
           ID = (Guid)dto.GuestID,
           Email = dto.Email,
           Picture = (dto.Picture == null) ? string.Empty : dto.Picture,
-          FirstName = splitName[0],
-          LastName = splitName[1]
+          FirstName = splitName.Length > 0 ? splitName[0] : "Guest",
+          LastName = splitName.Length > 1 ? splitName[1] : "User"
         };
+
         Guests.Add(appUserId, guest); // record which AppUser this Guest belongs to
         _context.Guests.Add(guest);
       }
