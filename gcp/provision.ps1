@@ -141,6 +141,7 @@ if ($Down) {
     if ($LASTEXITCODE -eq 0) { Write-Host "Bucket deleted." } else { Write-Host "Bucket not found or already deleted." }
 
     Write-Host "`n[DOWN] Deleting Cloud SQL instance '$SqlInstanceName'..." -ForegroundColor DarkGray
+    & cmd /c "gcloud sql instances patch $SqlInstanceName --no-deletion-protection --quiet 2>NUL" | Out-Null
     & cmd /c "gcloud sql instances delete $SqlInstanceName --quiet 2>NUL" | Out-Null
     if ($LASTEXITCODE -eq 0) { Write-Host "SQL instance deleted." } else { Write-Host "SQL instance not found or already deleted." }
 
