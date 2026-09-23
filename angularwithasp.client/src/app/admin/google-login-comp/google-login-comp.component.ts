@@ -15,15 +15,21 @@ export class GoogleLoginCompComponent implements AfterViewInit {
   isLoading = false;
   error: string | null = null;
 
+  private clientId: string = ''; // Starts empty. Formerly import.meta.env.VITE_GOOGLE_CLIENT_ID
   private http = inject(HttpClient);
   private router = inject(Router);
   private cartService = inject(CartService);
   private cdr = inject(ChangeDetectorRef);
-
-  private clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
+  
   ngAfterViewInit() {
-    this.loadGoogleScript();
+    // Fetch the client ID dynamically from the server
+    this.http.get<{clientId: string}>('/api/EnvName/google-client-id').subscribe({
+      next: (res) => {
+        this.clientId = res.clientId;
+        this.loadGoogleScript(); // Load and initialize Google button once we have the ID
+      },
+      error: (err) => console.error('Failed to load Google Client ID', err)
+    });
   }
 
   loadGoogleScript() {
