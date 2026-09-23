@@ -28,6 +28,8 @@ export class ShopComponent implements OnInit, OnDestroy {
   myRoute = '/';
   gotItems = false;
   
+  private currentCategory: string | null = null;
+
   private http = inject(HttpClient);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -39,6 +41,11 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe(params => {
       const category = params.get('category');
       const page = params.get('page');
+      
+      if (category !== this.currentCategory) {
+        this.searchTerm = '';
+        this.currentCategory = category;
+      }
       
       this.currPage = page ? parseInt(page, 10) : 1;
       this.myRoute = category ? `/category/${category}/` : '/';
