@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": "proxypub",
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "awasp-app",
+          "region": "australia-southeast2"
+        }
+      }
+    ]
+  }
+}
