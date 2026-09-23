@@ -64,7 +64,6 @@ if ([string]::IsNullOrWhiteSpace($DbPassword) -or [string]::IsNullOrWhiteSpace($
 }
 
 # 2. Build the database connection string
-# 2. Fetch the SQL Public IP and build connection string
 Write-Host "Fetching Cloud SQL public IP..."
 $SqlIp = gcloud sql instances describe $SqlInstanceName --format="value(ipAddresses[0].ipAddress)"
 if ([string]::IsNullOrWhiteSpace($SqlIp)) {
@@ -88,12 +87,16 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "`n[2/2] Deploying image to Cloud Run..." -ForegroundColor Green
-# We deploy and pass all the necessary environment variables securely
 gcloud run deploy $ServiceName `
   --image $ImageTag `
   --region $Region `
   --allow-unauthenticated `
   --set-env-vars="ConnectionStrings__StoreContext=$ConnectionString,Authentication__Google__ClientId=$GoogleClientId,Authentication__Google__ClientSecret=$GoogleClientSecret,GCP__StorageBucketName=$BucketName,RUN_MIGRATIONS=true,Authentication__VIP__Password=$VipPassword,Authentication__VIP__UserName=$VipUserName,Authentication__VIP__Email=$VipEmail,Authentication__VIP__Id=$VipId,Authentication__VIP__PasswordHash=$VipPasswordHash,Authentication__VIP__PhoneNumber=$VipPhoneNumber"
+
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Cloud Run deploy failed!"
+    exit 1
+}
 
 Write-Host "[3/3] Updating Firebase Hosting proxy..."
 # Ensure the proxy public folder exists so Firebase deploy doesn't fail
@@ -101,13 +104,24 @@ if (!(Test-Path "proxypub")) {
     New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot "proxypub") | Out-Null
 }
 $ConfigPath = Join-Path $PSScriptRoot "firebase.json"
+
+# Attempt to deploy using cached credentials
 & cmd /c "npx firebase-tools deploy --only hosting --config `"$ConfigPath`" --project awasp-gcp"
+
+# If it fails due to authentication, prompt for login once and retry
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Firebase authentication token missing or expired. Opening login flow..." -ForegroundColor Yellow
+    & cmd /c "npx firebase-tools login"
+    
+    # Retry deployment after successful login
+    & cmd /c "npx firebase-tools deploy --only hosting --config `"$ConfigPath`" --project awasp-gcp"
+}
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "`nRedeploy complete!" -ForegroundColor Cyan
-    $Url = gcloud run services describe $ServiceName --region $Region --format="value(status.url)"
+    $Url = gcloud run services describe $ServiceName --region$Region --format="value(status.url)"
     Write-Host "Your app is live at: $Url" -ForegroundColor Green
 } else {
-    Write-Error "Cloud Run deploy failed!"
+    Write-Error "Firebase hosting deployment failed!"
+    exit 1
 }
-
