@@ -1,0 +1,7 @@
+
+# Ignore the obj and bin folder...
+obj/**
+bin/**
+
+# Ignore test project appSettings file
+appSettings.json
