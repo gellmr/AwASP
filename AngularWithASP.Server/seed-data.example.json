@@ -1,0 +1,65 @@
+﻿{
+  "orderpayments": [
+    {
+      "ID":      "1",
+      "OrderID": "1",
+      "Amount":  "20",
+      "Date":    "2025-05-28 14:20:00.0000000 +08:00"
+    }
+  ],
+
+  "orderedproducts": [
+    {
+      "ID":               "1",
+      "OrderID":          "1",
+      "InStockProductID": "1",
+      "Quantity":         "1"
+    }
+  ],
+
+  "users": {
+    "112": {
+      "UserName":            "John Doe",
+      "Email":               "john.doe@example.com",
+      "EmailConfirmed":       true,
+      "IsGuest":              true,
+      "GuestID":             "********-****-****-****-************",
+      "Id":                  "********-****-****-****-************",
+      "PhoneNumber":         "**** **** ****",
+      "PhoneNumberConfirmed": true,
+      "TwoFactorEnabled":     false,
+      "Picture":             "/randomuserme/men/1.jpg",
+      "PasswordHash":        "*******************",
+      "LockoutEnabled":       true,
+      "LockoutEndDateUtc":    null,
+      "AccessFailedCount":    0
+    }
+  },
+
+  "orders": {
+    "1": {
+      "ID":                  "1",
+      "OrderStatus":         "ReadyToShip",
+      "GuestID":             "********-****-****-****-************",
+      "UserID":               null,
+      "OrderPlacedDate":     "2025-05-27 13:12:00.0000000 +08:00",
+      "PaymentReceivedDate": "2025-05-27 13:22:00.0000000 +08:00",
+      "ReadyToShipDate":     "2025-05-27 13:22:00.0000000 +08:00",
+      "BillingAddress":      "123 River Gum Way, Unit 10/150, Third Floor, Springfield, WA, Australia, 6525",
+      "ShippingAddress":     "123 River Gum Way, Unit 10/150, Third Floor, Springfield, WA, Australia, 6525",
+      "ShipDate":            "null",
+      "ReceivedDate":        "null"
+    }
+  },
+
+  "instockproducts": [
+    {
+      "ID":          "1",
+      "Name":        "Drink Bottle",
+      "Description": "Dont forget to drink water, while your out doing water sports.",
+      "Price":       "20",
+      "Category":    "waterSport",
+      "Image":       "/thumbs/tilt-bottle.png"
+    }
+  ]
+}
