@@ -1,0 +1,7 @@
+/* styles for Shop */
+
+.cartPageCenter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

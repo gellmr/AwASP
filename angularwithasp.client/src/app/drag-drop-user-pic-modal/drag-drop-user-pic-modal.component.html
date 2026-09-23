@@ -1,0 +1,36 @@
+<div *ngIf="show" class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-dark">
+      <div class="modal-header">
+        <h5 class="modal-title">Profile Image</h5>
+        <button type="button" class="btn-close" (click)="handleClose()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="mb-3">
+          Please choose an image for your user profile.<br />
+          <div *ngIf="isGoogleSignIn" class="text-danger fw-bold mt-1">
+            This will not update your Google Profile image.
+          </div>
+        </div>
+
+        <!-- Dropzone area -->
+        <div class="dragDropCont border border-2 border-dashed rounded p-4 d-flex flex-column align-items-center justify-content-center"
+             style="cursor: pointer; min-height: 200px; border-style: dashed !important; background-color: #f8f9fa;"
+             (dragover)="onDragOver($event)"
+             (drop)="onDrop($event)"
+             (click)="fileInput.click()">
+          
+          <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;" accept="image/*" />
+          
+          <div class="mb-2 text-muted">Click here to browse for a file, or drag and drop to upload.</div>
+          <img [src]="cloudGraphic" class="cloudGraphic rounded img-fluid mt-2" style="max-height: 150px; width: auto;" alt="Cloud upload graphic" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="handleClose()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="handleClose()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+

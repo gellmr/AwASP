@@ -1,0 +1,158 @@
+.adminUserAccountsParallax {
+}
+
+#adminLayout .adminUserAccountsParallax h4 {
+  color: #272727;
+  font-size: 30px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  padding-top: 10px;
+  background: linear-gradient(to right, transparent, #ffffffab, #ffffffab, transparent);
+}
+
+.adminContainUserAccRow {
+  background-color: #ffffff24;
+  border-radius: 9px;
+  padding-top: 10px;
+}
+
+.adminUserAccRow {
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  text-align: left;
+  padding-left: 10px;
+  padding-bottom: 6px;
+  margin: 0px;
+  margin-bottom: 15px;
+  font-size: 11px;
+  background-color: #ffffffeb;
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.2));
+}
+
+.adminUserAccRow.currUserRow {
+  background-color: #84c7fff7;
+  border: 1px solid #6fa9d973;
+}
+
+.adminUserAccRow.currUserRow .adminUserAccDetailsBox .adminUserAccCell:first-child {
+  font-weight: 500;
+  text-wrap-mode: nowrap;
+  font-size: 10px;
+}
+
+.adminUserAccDetailsBox {
+  padding-top: 12px;
+  padding-bottom: 4px;
+}
+
+.adminUserAccCell {
+  padding-bottom: 8px;
+  padding-right: 25px;
+}
+
+.adminUserAccImage {
+  text-align: center;
+}
+
+.adminUserAccImage img {
+  margin-top: 5px;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #f6f6f6;
+  object-fit: cover;
+}
+
+.adminUserAccRow.currUserRow .adminUserAccImage img {
+  border: none;
+}
+
+.adminUserAccDetailLinks {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.adminUserAccDetailLinks a {
+  font-size: 10px;
+  margin-left: 11px;
+  margin-bottom: 5px;
+}
+
+.adminUserAccLarge {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+}
+
+.adminUserAccSmall {
+  /* small padding, display under details on small devices */
+}
+
+.adminUserAccCurrPhoto {
+  cursor: pointer;
+  background-color: gainsboro;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.adminUserAccCurrPhoto:hover {
+  background-color: #eeeeee;
+}
+
+.mgGuid {
+  color: #386fa7;
+}
+
+.mgFooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@media (min-width: 370px) {
+  .adminUserAccRow.currUserRow .adminUserAccDetailsBox .adminUserAccCell:first-child {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 576px) {
+  .adminUserAccRow {
+    font-size: 13px;
+  }
+  .adminUserAccDetailsBox {
+    padding-top: 20px;
+  }
+  .adminUserAccRow.currUserRow .adminUserAccDetailsBox .adminUserAccCell:first-child {
+    font-size: 12px;
+  }
+  .adminUserAccDetailLinks {
+    margin-top: unset;
+  }
+  .mgGuid {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 708px) {
+  .adminUserAccRow.currUserRow .adminUserAccDetailsBox .adminUserAccCell:first-child {
+    font-size: unset;
+  }
+  .mgGuid {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* tablet portrait */
+}
+
+@media (min-width: 992px) {
+  .adminUserAccRow {
+    font-size: 15px;
+  }
+  .mgGuid {
+    font-size: 15px;
+  }
+}
+

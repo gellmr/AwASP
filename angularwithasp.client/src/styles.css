@@ -1,0 +1,1076 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  /*display: flex;*/
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* ======================================================== */
+/* =============     SMALLER THAN xs      ================= */
+/* ======================================================== */
+/*
+  I have defined a custom breakpoint to allow xxs for some items.
+  For these styles, the default is xxs.
+  For all other styles the default breakpoint means xs.
+  BEGINNING OF ABSOLUTE SMALLEST
+*/
+
+#root {
+  /*max-width: 1280px;*/
+  margin: 0 auto;
+  text-align: center;
+}
+.xxsCartBtn{
+  display:none;
+}
+.mgAdminNavHideMD {
+  display: inline-block;
+  /*color: red;*/
+}
+
+.navbar-toggler {
+  max-width: 45px;
+  padding-left: 7px;
+}
+.navbar-toggler-icon{
+  font-size:19px;
+}
+.soccerBaseBg {
+  background-repeat: no-repeat;
+  max-width: 1070px;
+}
+.soccerBg1 {
+  background-image: url("/bg/soccer-bgtallrev.jpg");
+}
+.soccerBg2 {
+  background-image: url("/bg/soccer-bg2.3.jpg");
+}
+.chessBg {
+  background-image: url("/bg/chess-bg8.jpg");
+}
+.kayakBg {
+  background-image: url("/bg/kayak-bg5revXsShort.jpg");
+  background-position-x: center;
+}
+.mgImgThumb{
+  overflow-x: clip;
+}
+.mgImgThumb img {
+  border-radius: 7px;
+  /*width: 20vw;*/
+  width: 100%;
+  height: auto;
+  min-width: 90px;
+  max-width: 150px;
+  /*border: 1px solid gainsboro;*/
+}
+
+.lime{
+  /*background-color:lime!important;*/
+}
+.adminProductsAll {
+  background-color: #ffffff12;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+.adminProductRow {
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  text-align: left;
+  padding-left: 10px;
+  padding-bottom: 6px;
+  margin: 0px;
+  margin-bottom: 15px;
+  background-color: #ffffffde;
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.2));
+}
+.adminProductDetailsBox {
+  padding-top: 8px;
+  padding-bottom: 4px;
+}
+.adminProductCell {
+  padding-bottom: 8px;
+  padding-right: 25px;
+}
+.adminProdImage {
+  text-align: center;
+}
+.adminProdImage img {
+  margin-top: 5px;
+}
+
+
+
+
+.mg-category-menu-r.btn-group-vertical a {
+  text-align: left;
+  border-radius: 0px;
+}
+.mg-category-menu-r {
+  /*border: 3px dashed cyan;*/
+  width: 100%;
+}
+.mg-category-menu-r a:last-child{
+  border-bottom-left-radius:2px;
+  border-bottom-right-radius:2px;
+}
+.mg-category-menu-r .active{
+  font-weight:600;
+}
+.mg-category-menu-r .btn{
+  background-color:rgba(248, 249, 250, 0.95);
+}
+.mg-category-menu-r .btn:hover{
+  background-color:rgba(211, 212, 213, 0.95);
+}
+.mg-category-menu-r .btn.active{
+  border: none;
+  background-image: linear-gradient(90deg, #afafaf2b, #afafaf24, transparent);
+}
+.cartQtyXXs{
+  /*color:red;*/
+  display:block!important;
+}
+.cartQtyXs {
+  /*color: orange;*/
+  display: none !important;
+}
+
+/* ADMIN LOGIN PAGE */
+.mgGoogleTokenErrSpan.d-block {
+  text-align: left;
+  font-size: 12px;
+  max-width: 173px;
+  padding-bottom: 11px;
+}
+.mgGoogleTokenErrSpan.d-sm-block {
+  text-align: right;
+  font-size: 12px;
+  max-width: 195px;
+}
+.mg-admin-login-form .btn {
+  font-size: 12px;
+}
+.mg-admin-login-form input {
+  font-size: 12px;
+}
+.bi-wrench {
+  font-size: 20px;
+}
+.mg-construction-red {
+  font-size: 12px;
+  background-color: #ffcfcf;
+  height: 40px;
+  border: 2px solid #ffdccf;
+  border-right: none;
+  border-left: none;
+  display: flex;
+  flex-direction: row;
+  align-items: anchor-center;
+  justify-content: center;
+  color: #b33111;
+  background: repeating-linear-gradient( 45deg, #fffbef, #fffbef 10px, #ffebd7 10px, #ffebd7 20px );
+}
+.mgAdminNavLinks {
+  color: #d2dfff;
+}
+.mgAdminNavLinks:hover {
+  color: #a5afca;
+}
+.mgNavLinkBtn {
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 12px;
+  font-size: 12px;
+}
+
+#adminLayout .mgNavLinkBtn.active {
+  color: #ffd298;
+}
+  #adminLayout .mgNavLinkBtn.active:hover {
+    color: #fff2e1;
+    color: #c79d66;
+  }
+#adminLayout .backToShopBtn {
+  color: #789ebe;
+  /*color: #8bb3d4;*/
+}
+  #adminLayout .backToShopBtn:hover {
+    color: #bce0ff;
+  }
+.mgNavLinkBtn.mgNavLinkCartBtn {
+  color: white;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: rgb(25, 135, 84);
+  border-color: rgb(25, 135, 84);
+  border-radius: 6px;
+  font-size: 12px;
+}
+.mgNavLinkBtn.mgNavLinkCartBtn:hover {
+  color: white;
+  background-color: rgb(21, 115, 71);
+}
+.mgCurrUserNav {
+  color: white;
+  font-weight: 600;
+  flex-grow: 2;
+  text-align: right;
+  font-size: 12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:flex-start;
+}
+
+.mgFooter {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  background: linear-gradient(to right, transparent, #ffffffab, transparent);
+}
+
+@media (min-width: 370px) {
+  /* BEGINING OF INTERMEDIATE SIZE */
+  .xxsCartBtn {
+    display: inline-block;
+  }
+  .mg-category-menu-r {
+    /*border: 3px dashed magenta;*/
+    display:flex;
+    width: 100%;
+  }
+  .cartQtyXXs {
+    /*color: unset;*/
+    display:none!important;
+  }
+  .cartQtyXs {
+    /*color: orange;*/
+    display: block !important;
+  }
+
+  /* ADMIN LOGIN PAGE */
+  .mg-admin-login-form .btn {
+    font-size: 15px;
+  }
+  .mg-admin-login-form input {
+    font-size: 15px;
+  }
+  .mg-construction-red {
+    font-size:16px;
+  }
+  .bi-wrench {
+    font-size: 24px;
+  }
+  .mgNavLinkBtn {
+    font-size: 12px;
+  }
+  .mgNavLinkBtn.mgNavLinkCartBtn {
+    font-size: 12px;
+  }
+  .mgCurrUserNav {
+    font-size: 12px;
+  }
+}
+
+/* ======================================================== */
+/* =============    DEFAULT BREAKPOINT: xs  =============== */
+/* ======================================================== */
+/* xs */
+/* Extra small devices (portrait phones, less than 576px) */
+/* No media query for `xs` since this is the default in Bootstrap */
+
+.storeBrand {
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  padding-right: 15px;
+  margin-top: -4px;
+  flex-grow: 1;
+  text-align: left;
+}
+#adminLayout .storeBrand {
+  font-size: 16px;
+  color:white;
+}
+.responsiveScrollsRight {
+  width: 100%;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #505050;
+}
+
+#adminLayout {  /* This must be at least 12px or we get a funny overscroll behaviour on the right hand side, for Admin Orders page. */
+                padding-left: 12px; padding-right: 12px; }
+/* On mobile, the margins encroach a tiny bit more than browser desktop. Ensure there is enough container padding to avoid any loss, on small screens. */
+#loginLayout  { padding-left: 18px; padding-right: 18px; }
+#shopLayout   { padding-left: 18px; padding-right: 18px; }
+#noShopLayout { padding-left: 18px; padding-right: 18px; }
+
+#shopLayout .shopMain {
+  /*min-height: 100vh;*/
+}
+
+#adminLayout nav{
+  padding-left:20px;
+  padding-right:10px;
+}
+#adminLayout table{
+  font-size:12px;
+}
+#adminLayout td{
+  padding:1px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  white-space: nowrap;
+}
+
+.shopLayoutTransparent {
+  padding-top: 15px;
+  padding-bottom: 12px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+  .shopLayoutTransparent.bgOrderFullTransparent {
+    background-color: transparent;
+  }
+  .shopLayoutTransparent.bgCartFullTransparent {
+    background-color: transparent;
+  }
+  .shopLayoutTransparent.bgRegularTransparent {
+    background-image: linear-gradient(to bottom, #ffffffad, transparent);
+  }
+  .shopLayoutTransparent.bgStrongTransparent {
+    background-image: linear-gradient(to bottom, #ffffffcc, transparent);
+  }
+
+  .mg-nav-items {
+    /*border:3px dashed magenta;*/
+    align-items: flex-start;
+    width: 100%;
+  }
+
+tr:nth-child(even) {
+    background: #F2F2F2;
+}
+
+tr:nth-child(odd) {
+    background: #FFF;
+}
+
+th, td {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.searchXBtn:hover {
+  background-color: #7bbb9d;
+  cursor:pointer;
+}
+.searchXBtn:active {
+  background-color: #21de87;
+  cursor: pointer;
+}
+
+
+/* PRODUCT TITLE, SLUG, AND CART BUTTONS. HAS SOME PADDING */
+.inStockProductCanAdd {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 13px;
+  margin-bottom: 13px;
+  padding: 10px;
+  background-color: #ffffffd6;
+}
+/* PRODUCT TITLE, SLUG, AND CART BUTTONS */
+.inStockProductCanAdd .productDetailsFlex{
+  /*border: 2px dashed red;*/
+  padding-left: 0px;
+  padding-right: 0px;
+}
+/* PRODUCT TITLE AND SLUG */
+.inStockProductCanAdd .productDetailsFlex .productDetails {
+  /*border: 4px dashed cornflowerblue;*/
+  display:block;
+  text-align:left;
+  overflow-y:hidden;
+  /*width:410px;*/
+  overflow-x:hidden;
+}
+/* PRODUCT SLUG */
+.inStockProductCanAdd .productDetailsFlex .productDetails span {
+  /*border: 2px dashed mediumseagreen;*/
+  /*background-color: lightgreen;*/
+  font-size: 12px;
+}
+.inStockProductCanAdd .productDetailsFlex .productDetails .inStockPrice {
+  padding-left: 2px;
+  font-size: 18px;
+  color: #75a9da;
+  font-weight: 500;
+}
+
+
+.flexContAddToCart {
+  /*border: 2px dashed lightblue;*/
+  /*background-color: #5f7ba5;*/
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+/*.flexContAddToCart {
+  border: 1px dashed darkseagreen;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: 6px;
+  overflow:hidden;
+}*/
+/* ADD TO CART BUTTON */
+.inStockProductCanAdd .productDetailsFlex .btn-group {
+  /*border: 3px dashed orange;*/
+  height:38px;
+  min-width:100px;
+  font-size:13px;
+  align-self: flex-end;
+}
+.inStockProductCanAdd .productDetailsFlex button {
+  font-size:10px;
+}
+/* QTY IN CART PREVIEW BUTTON */
+.addToCartBtnGroup button {
+  /*border: 2px solid #b2dcc5;*/
+}
+.currentlyAdded:disabled {
+  background-color:white;
+  border: 1px solid #e9f6ef !important;
+  width: 42px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #252525;
+  padding-top: 7px;
+  margin-right: 2px;
+}
+.currentlyAdded:disabled:hover{
+  background-color:white;
+  border: 1px solid #e9f6ef;
+  color:black;
+}
+
+/* CART STYLES */
+.proceedCheckoutBar{
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.proceedCheckoutBar .btn {
+  font-size: 13px;
+}
+.cartContents {
+  /*border: 1px solid red;*/
+  border-radius: 5px;
+}
+.inCartProd{
+  /*border: 2px dashed gold;*/
+  display:flex;
+  justify-content:center;
+  
+  border-radius: 5px;
+  
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.inCartProd .innerRow{
+  border: 1px solid lightgrey;
+  /*max-width:450px;*/
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  padding-right:0px;
+  padding-left:0px;
+  background-color: #ffffffd6;
+}
+.innerRow div{
+  /*border: 1px dashed lime;*/
+}
+.inCartProd button {
+  /*border: 3px dashed red;*/
+  float: right;
+  width: 85px;
+  font-size: 14px;
+}
+.inCartItemText {
+  text-align: left;
+}
+.inCartItemText p{
+  font-size:13px;
+}
+.inCartItemRemove{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.inCartItemRemove .btn-group{
+  max-width:130px;
+}
+.inCartItemRemove .btn-group button{
+  /*min-width:30px;*/
+}
+.inCartItemRemove .btn-group button:disabled{
+  background-color:red !important;
+}
+.cartLineSubInfoBottom {
+  color: #637183;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: flex-end;
+  padding-bottom: 4px;
+  padding-left: 0px;
+  font-size: 12px;
+}
+.fetchErr {
+  color: #a5bbcf;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 15px;
+  background-color: #eff7ff63;
+  border-radius: 10px;
+}
+.shopSearchResult {
+  min-height: 670px;
+}
+.loginErrStyle {
+  color: #8d8bbe;
+  font-size: 16px;
+  background-color: #f2f6ff;
+  background-color: #f4f8ff;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+
+
+/* ADMIN LOGIN PAGE */
+.mg-admin-login-form {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  max-width: 600px;
+}
+
+/* ================================================= */
+/* ========= OTHER BREAKPOINTS BELOW HERE ========== */
+/* ================================================= */
+/* sm */
+/* Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) {
+  .soccerBg1 {
+    background-size: contain;
+  }
+  .kayakBg {
+    background-image: url("/bg/kayak-bg5revXsTall.jpg");
+  }
+  .mgAdminNavHideMD {
+    display: none;
+    /*color: yellow;*/
+  }
+  .mg-nav-items {
+    /*border: 3px dashed purple;*/
+    align-items: center;
+  }
+  .mg-category-menu-r {
+    /*border: 3px dashed purple;*/
+    width: 100%;
+  }
+  .mg-category-menu-r .btn.active {
+    background-image: unset;
+    background-color: #e3e3e3;
+  }
+  .proceedCheckoutBar .btn {
+    font-size: 15px;
+  }
+  .cartQtyXs {
+    /*color: orange;*/
+    display: none !important;
+  }
+  .mgNavLinkBtn {
+    font-size: 12px;
+  }
+  .mgNavLinkBtn.mgNavLinkCartBtn {
+    font-size: 12px;
+  }
+  .mgCurrUserNav {
+    font-size: 12px;
+    flex-direction: row;
+    justify-content:flex-end;
+  }
+  .adminProductRow {
+    font-size: 14px;
+  }
+}
+
+/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ */
+/* ======= Custom Breakpoint - MD-INERMEDIATE ====== */
+/* \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
+
+@media (min-width: 708px) {
+  /* Hide the "Customer" word in "Customer Accounts on navbar at md-intermediate size */
+  .mgAdminNavHideMD {
+    display: inline-block;
+    /*color: lime;*/
+  }
+}
+
+
+/* ================================================= */
+/* =========            MEDIUM            ========== */
+/* ================================================= */
+
+@media (min-width: 768px)
+{
+  .chessBg {
+    background-image: url("/bg/chess-bg8.2.jpg");
+  }
+  .mgNavLinkBtn {
+    font-size: 13px;
+  }
+  .mgNavLinkBtn.mgNavLinkCartBtn {
+    font-size: 13px;
+  }
+  .mgCurrUserNav {
+    font-size: 13px;
+  }
+  .adminProductRow {
+    font-size: 17px;
+  }
+  .storeBrand {
+    font-size: 20px;
+  }
+  #adminLayout .storeBrand {
+    font-size: 20px;
+  }
+}
+
+/* ================================================= */
+/* =========             LARGE            ========== */
+/* ================================================= */
+
+@media (min-width: 992px)
+{
+  .mgNavLinkBtn {
+    font-size: 16px;
+  }
+  .mgNavLinkBtn.mgNavLinkCartBtn {
+    font-size: 16px;
+  }
+  .mgCurrUserNav {
+    font-size: 16px;
+  }
+}
+
+/*
+====================================
+        < Nav.css contents>
+====================================
+*/
+
+.useResponsiveLink.xs {
+}
+.useResponsiveLink.sm {
+}
+.useResponsiveLink.md {
+}
+
+.useResponsiveLink {
+  text-decoration:none;
+  text-wrap-mode:nowrap;
+  font-size: 12px;
+  padding:12px;
+  padding-left:10px;
+  padding-right:10px;
+  color: #646cff;
+}
+.useResponsiveLink.active {
+  color: #ffd298 !important;
+}
+
+.hideInlineBlockXXs{
+  display:none;
+}
+
+@media (min-width: 350px) {
+  .hideInlineBlockXXs {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 576px) {
+  .useResponsiveLink {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 708px) {
+  .useResponsiveLink {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .useResponsiveLink {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 992px) {
+  .useResponsiveLink {
+    font-size: 16px;
+  }
+}
+
+/* InlineLinks.css contents */
+.inlineLinks .vl {
+  border-left: 1px solid rgb(65 93 135);
+  display: inline-block;
+  margin-left: 3px;
+  width: 2px;
+}
+.inlineLinks {
+  margin-right:2px;
+}
+.inlineLink{
+  display:inline-block;
+}
+.inlineLink.linkA{
+  display:none;
+}
+.inlineLink.linkC {
+  display: none;
+}
+.inlineLink.linkD {
+  display: none;
+}
+
+@media (min-width: 440px) {
+  .inlineLink.linkC {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 505px) {
+  .inlineLink.linkA {
+    display: inline-block;
+  }
+}
+
+/* StackedLinks.css contents */
+.stackedLinks .vl {
+  border-left: 1px solid rgb(65 93 135);
+  display: inline-block;
+  margin-left: 3px;
+  width: 2px;
+  display: none;
+}
+.stackedLink {
+  display: block;
+  text-align:left;
+}
+.stackedLink {
+  display: block;
+}
+.stackedLink.linkB {
+  display: none;
+}
+
+@media (min-width: 440px) {
+  .stackedLink.linkC {
+    display: none;
+  }
+}
+
+@media (min-width: 505px) {
+  .stackedLink.linkA {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) {
+  .stackedLink {
+    display: inline-block;
+  }
+  .stackedLinks .vl {
+    display: inline-block;
+  }
+
+  .stackedLink.linkA {
+    display: inline-block;
+  }
+  .stackedLink.linkB {
+    display: inline-block;
+  }
+  .stackedLink.linkC {
+    display: inline-block;
+  }
+  .stackedLink.linkD {
+    display: inline-block;
+  }
+}
+
+/*
+====================================
+        </ Nav.css contents>
+====================================
+*/
+
+
+/* ======================================================== */
+/* =============       MY ORDERS CSS       ================ */
+/* ======================================================== */
+
+.myOrdersLines{
+  /*border:3px dashed red;*/
+  height:1160px;
+}
+
+.myOrdersRect {
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  background-color: #ffffffd6;
+  font-size: 11px;
+}
+
+.myOrdRow {
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-left: 30px;
+  text-align: left;
+  margin-bottom: 7px;
+}
+.myOrdersHeadInfo .myOrdRow .row div:first-child {
+  font-weight:500;
+}
+.myOrdRow .row div:last-child {
+  /*border:1px solid red;*/
+  padding-right: 25px;
+}
+
+.shipToDetail {
+  /*color:darkmagenta;*/
+}
+
+.shipAddy {
+  color: #707082;
+}
+
+.guid {
+  color: #5d62c1;
+  color: #9b9cb8;
+}
+
+.ordersEmptyMsg {
+  color: #4872a0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 15px;
+  padding-top:0px;
+}
+.ordersEmptyMsg div{
+  margin-bottom:9px;
+}
+
+@media (min-width: 370px) {
+  /* BEGINING OF INTERMEDIATE SIZE */
+  .myOrdersRect {
+    font-size: 11px;
+    /*color: red;*/
+  }
+}
+
+@media (min-width: 576px) {
+  .myOrdersRect {
+    font-size: 12px;
+    /*color: orange;*/
+  }
+  .shipToDetail {
+    /*color:lime;*/
+    padding-right: 35px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .myOrdersRect {
+    font-size: 13px;
+    /*color: saddlebrown;*/
+  }
+}
+
+
+/* ======================================================== */
+/* =============     MY ORDER DETAIL CSS    =============== */
+/* ======================================================== */
+
+.myOrderDetailLines {
+  /*border: 3px dashed red;*/
+  height: 1160px;
+  margin-top:10px;
+}
+
+#myOrdDetailPage {
+  /*color: coral !important;*/
+  font-size: 11px;
+}
+.myOrdDetailIspTitle{
+  font-size:9px;
+}
+.myOrdDetailImageHead {
+  /*color: darkmagenta;*/
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  background-color: #ffffffd6;
+  padding-bottom: 5px;
+}
+
+.myOrdDetailRow {
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-left: 30px;
+  text-align: left;
+  margin-bottom: 7px;
+}
+.shipAddy {
+  color: #707082;
+  font-size: 12px;
+  padding-right: 25px;
+}
+
+#myOrdDetailPage .myOrdDetailImageBody {
+  padding-top:10px;
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  background-color: #ffffffd6;
+}
+
+#myOrdDetailPage .myOrdDetailImageRow {
+  /*border: 2px dashed blue;*/
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  margin-bottom: 15px;
+}
+#myOrdDetailPage .myOrdDetailImageCell b {
+  font-weight: 600;
+}
+#myOrdDetailPage .myOrdDetailImageCell .mgLight {
+  font-weight: 400;
+  color: #616161;
+}
+#myOrdDetailPage .myOrdDetailImageCell:first-child {
+  /*border: 2px dashed red;*/
+  padding-left: 25px;
+  font-weight: 600;
+}
+#myOrdDetailPage .myOrdDetailImageCell:last-child {
+  /*border: 2px dashed magenta;*/
+  padding-left: 0px;
+}
+
+@media (min-width: 370px) {
+  /* BEGINING OF INTERMEDIATE SIZE */
+  
+  #myOrdDetailPage {
+    /*color: red !important;*/
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 576px) {
+  
+  #myOrdDetailPage {
+    /*color: magenta !important;*/
+    font-size: 13px;
+  }
+  .myOrdDetailIspTitle {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 768px) {
+  #myOrdDetailPage {
+    /*color: lime !important;*/
+    font-size: 14px;
+  }
+}

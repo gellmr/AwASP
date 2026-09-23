@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="col-sm-12 adminCont">
+    
+    <div class="adminOrdersOuter">
+      <app-admin-title-bar titleText="Orders Backlog" [construction]="false">
+        <!-- Error markup -->
+        <div *ngIf="error" class="text-danger text-center mt-2">
+          <span>Error: {{ error }}</span>
+        </div>
+      </app-admin-title-bar>
+
+      <!-- Loading spinner -->
+      <div *ngIf="isLoading && adminOrders.length === 0" class="d-flex justify-content-center my-4">
+        <div class="fetchErr">
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          &nbsp; Loading
+        </div>
+      </div>
+
+      <!-- Main content markup when loaded or if we already have records cached/optimistic -->
+      <div *ngIf="!error && (adminOrders.length > 0 || !isLoading)" class="adminOrderPMarkup">
+        
+        <div class="backlogSearchCont">
+          <app-search-input 
+            [initVal]="backlogSearch" 
+            placeholder="Search backlog" 
+            (parentHandleInputChange)="handleSearchChange($event)">
+          </app-search-input>
+        </div>
+
+        <span class="d-inline-block d-lg-none d-xl-none responsiveScrollsRight backlogPagCent">
+          ( Responsive table scrolls right )&nbsp;<i class="bi bi-arrow-right"></i>
+        </span>
+
+        <!-- Found count -->
+        <div class="backlogPagCent" *ngIf="backlogSearch.trim() !== '' && totResults === 0">
+          Found 0 orders
+        </div>
+        <div class="backlogPagCent" *ngIf="totResults > 0">
+          Found {{ totResults }} order{{ totResults === 1 ? '' : 's' }}
+        </div>
+
+        <!-- Pagination Top -->
+        <div class="backlogPagCent adminOrderPagin" *ngIf="numPages > 1">
+          <app-pagination-links [numPages]="numPages" [currPage]="currPage" myRoute="/admin/orders"></app-pagination-links>
+        </div>
+
+        <!-- Table -->
+        <div *ngIf="totResults > 0; else noRecords" class="wrapClearTable">
+          <div class="wrapLeftClearTable"></div>
+          <div class="wrapTable">
+            <div class="wrapLeftTable"></div>
+            
+            <div class="table-responsive">
+              <table class="table table-hover adminOrdersTable">
+                <thead>
+                  <tr>
+                    <th>#Result</th>
+                    <th>OrderPlaced</th>
+                    <th>OrderID</th>
+                    <th>Username</th>
+                    <th>UserID</th>
+                    <th>GuestID</th>
+                    <th>AccountType</th>
+                    <th>Email</th>
+                    <th>PaymentReceived</th>
+                    <th>Outstanding</th>
+                    <th>ItemsOrdered</th>
+                    <th style="text-align: left;">Items</th>
+                    <th>OrderStatus</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let line of adminOrders" 
+                      class="backlogCursorRow" 
+                      (click)="handleClickBacklogRow(line.id)" 
+                      [attr.data-orderid]="line.id">
+                    <td>{{ line.rowNumber }}</td>
+                    <td>{{ line.orderPlacedDate }}</td>
+                    <td>{{ line.id }}</td>
+                    <td>{{ line.username }}</td>
+                    <td>{{ line.userIDshort }}</td>
+                    <td>{{ line.guestIDshort }}</td>
+                    <td>{{ line.accountType }}</td>
+                    <td>{{ line.email }}</td>
+                    <td>{{ line.paymentReceivedAmount }}</td>
+                    <td>{{ line.outstanding }}</td>
+                    <td>{{ line.itemsOrdered }}</td>
+                    <td style="text-align: left;">{{ line.items }}</td>
+                    <td>{{ line.orderStatus }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="wrapLeftTable"></div>
+          </div>
+          <div class="wrapLeftClearTable"></div>
+        </div>
+
+        <ng-template #noRecords>
+          <div class="d-flex justify-content-center my-4" *ngIf="!isLoading">
+            No records found
+          </div>
+        </ng-template>
+
+        <!-- Pagination Bottom -->
+        <div class="backlogPagCent adminOrderPagin" *ngIf="numPages > 1">
+          <app-pagination-links [numPages]="numPages" [currPage]="currPage" myRoute="/admin/orders"></app-pagination-links>
+        </div>
+
+      </div>
+
+      <div class="backlogPagCent mgFooter" style="margin-top: 38px;">Built with Angular and .NET Core 8.0</div>
+
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,10 @@
+/* styles for CheckoutSuccess */
+
+.checkoutThanks{
+  /* border:3px dashed red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

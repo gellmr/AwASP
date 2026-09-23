@@ -1,0 +1,12 @@
+# The .vs folder contains machine and user specific files. It should not be committed to source control.
+.vs/*
+
+# Ignore generated firebase cache files
+.firebase/
+*.cache
+gcp/firebase-debug.log
+
+# Ignore the build folders and contents
+**/bin/
+**/obj/
+

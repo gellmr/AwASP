@@ -1,0 +1,36 @@
+<div class="col-12">
+  <div class="myOrdersRect myOrdersHeadInfo">
+    <div class="row">
+      <div class="col-12">
+
+        <!-- Account Type -->
+        <div class="col-12 myOrdRow">
+          <div class="row">
+            <div class="col-4 col-sm-3">Account Type:</div>
+            <div class="col-8 col-sm-9">{{ accType }}</div>
+          </div>
+        </div>
+
+        <!-- ID (Dev Mode Only) -->
+        <app-my-orders-show-account-id *ngIf="devMode" [accType]="accType" [idval]="idval"></app-my-orders-show-account-id>
+
+        <!-- Full Name -->
+        <div class="col-12 myOrdRow">
+          <div class="row">
+            <div class="col-4 col-sm-3">Full Name:</div>
+            <div class="col-8 col-sm-9">{{ fullname }}</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-12 myOrdRow" style="margin-bottom: 15px;">
+          <div class="row">
+            <div class="col-4 col-sm-3">Email:</div>
+            <div class="col-8 col-sm-9">{{ email }}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

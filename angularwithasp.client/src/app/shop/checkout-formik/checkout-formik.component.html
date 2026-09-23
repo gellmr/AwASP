@@ -1,0 +1,179 @@
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  
+  <!-- First Name -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">First Name</span>
+    <input type="text" class="form-control" formControlName="firstName" id="firstName" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('firstName')) {
+        @if (f['firstName'].errors?.['required']) {
+          First Name is required.
+        } @else if (f['firstName'].errors?.['minlength']) {
+          First Name must be at least 2 characters long.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- Last Name -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">Last Name</span>
+    <input type="text" class="form-control" formControlName="lastName" id="lastName" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('lastName')) {
+        @if (f['lastName'].errors?.['minlength']) {
+          Last Name must be at least 2 characters long.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- Line 1 -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">Line 1</span>
+    <input type="text" class="form-control" formControlName="shipLine1" id="shipLine1" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('shipLine1')) {
+        @if (f['shipLine1'].errors?.['required']) {
+          Address Line 1 is required.
+        } @else if (f['shipLine1'].errors?.['minlength']) {
+          Address Line 1 must be at least 2 characters long.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- Line 2 -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">Line 2</span>
+    <input type="text" class="form-control" formControlName="shipLine2" id="shipLine2" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">&nbsp;</div>
+  </div>
+
+  <!-- Line 3 -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">Line 3</span>
+    <input type="text" class="form-control" formControlName="shipLine3" id="shipLine3" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">&nbsp;</div>
+  </div>
+
+  <!-- City -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">City</span>
+    <input type="text" class="form-control" formControlName="shipCity" id="shipCity" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('shipCity')) {
+        @if (f['shipCity'].errors?.['required']) {
+          City is required.
+        } @else if (f['shipCity'].errors?.['minlength']) {
+          City must be at least 2 characters long.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- State -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">State</span>
+    <input type="text" class="form-control" formControlName="shipState" id="shipState" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('shipState')) {
+        @if (f['shipState'].errors?.['required']) {
+          State is required.
+        } @else if (f['shipState'].errors?.['minlength']) {
+          State must be at least 2 characters long.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- Country -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">Country</span>
+    <input type="text" class="form-control" formControlName="shipCountry" id="shipCountry" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('shipCountry')) {
+        @if (f['shipCountry'].errors?.['required']) {
+          Country is required.
+        } @else if (f['shipCountry'].errors?.['minlength']) {
+          Country must be at least 2 characters long.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- Zip -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">Zip</span>
+    <input type="text" class="form-control" formControlName="shipZip" id="shipZip" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('shipZip')) {
+        @if (f['shipZip'].errors?.['required']) {
+          Zip is required.
+        } @else if (f['shipZip'].errors?.['minlength']) {
+          Zip must be at least 4 characters long.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div class="input-group mb-1">
+    <span class="input-group-text">Email</span>
+    <input type="email" class="form-control" formControlName="shipEmail" id="shipEmail" />
+  </div>
+  <div class="mb-1 text-center">
+    <div class="error">
+      @if (isFieldInvalid('shipEmail')) {
+        @if (f['shipEmail'].errors?.['required']) {
+          Email is required.
+        } @else if (f['shipEmail'].errors?.['email']) {
+          Invalid email format.
+        }
+      } @else {
+        &nbsp;
+      }
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div role="group" class="checkoutSubmitBtnGroup btn-group">
+    <button type="button" class="btn btn-light" (click)="autoFill()" title="Click to autofill the form with some generated test values">
+      <i class="bi bi-list-check"></i>&nbsp;Autofill
+    </button>
+    <button type="submit" class="btn btn-success">Complete Order</button>
+  </div>
+
+</form>

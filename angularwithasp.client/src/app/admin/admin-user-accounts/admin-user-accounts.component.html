@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-sm-12 adminCont adminParallax adminUserAccountsParallax">
+
+    <div class="row" style="margin-bottom: 100px;">
+      <div class="col-12">
+        <app-admin-title-bar titleText="Customer Accounts" [construction]="false"></app-admin-title-bar>
+      </div>
+      <div class="col-12">
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="fetchErr text-center p-4">Loading...</div>
+
+        <!-- Error State -->
+        <div *ngIf="error" class="fetchErr text-center p-4 text-danger">Error: {{ error }}</div>
+
+        <!-- User list markup -->
+        <div *ngIf="!isLoading && !error" class="row">
+          <div class="col-0 col-lg-2">
+            <!-- LSPACE -->
+          </div>
+          <div class="col-12 col-lg-8 adminContainUserAccRow">
+            <app-drag-drop-user-pic-modal (onSuccess)="handleModalSuccess($event)"></app-drag-drop-user-pic-modal>
+
+            <div *ngFor="let user of userAccounts" 
+                 class="row adminUserAccRow" 
+                 [class.currUserRow]="isCurrentUser(user)"
+                 [attr.data-fullname]="user.fullName">
+
+              <!-- Large Screens Pic (d-none d-sm-flex) -->
+              <div class="col-4 adminUserAccCell d-none d-sm-flex adminUserAccImage adminUserAccLarge">
+                <img [src]="user.picture || '/thumbs/noProfile120.png'"
+                     class="adminUserAccCurrPhoto rounded animate-pic"
+                     (click)="handleClickPhoto(getIdVal(user), getUserType(user))"
+                     referrerpolicy="no-referrer" />
+              </div>
+
+              <!-- Main Details Box -->
+              <div class="col-12 col-sm-8">
+                <div class="row adminUserAccDetailsBox">
+                  <!-- Name -->
+                  <div class="col-3 adminUserAccCell">
+                    {{ isCurrentUser(user) ? "(Logged in as) " : 'Full Name' }}
+                  </div>
+                  <div class="col-9 adminUserAccCell fullNameCell">
+                    {{ user.fullName }}
+                  </div>
+
+                  <!-- User ID -->
+                  <div class="col-3 adminUserAccCell">User&nbsp;ID</div>
+                  <div class="col-9 adminUserAccCell mgGuid">{{ getIdVal(user) }}</div>
+
+                  <!-- Phone Number (Optional) -->
+                  <ng-container *ngIf="user.phoneNumber">
+                    <div class="col-3 adminUserAccCell">Phone</div>
+                    <div class="col-9 adminUserAccCell">{{ user.phoneNumber }}</div>
+                  </ng-container>
+
+                  <!-- Email -->
+                  <div class="col-3 adminUserAccCell">Email</div>
+                  <div class="col-9 adminUserAccCell">{{ user.email }}</div>
+
+                  <!-- Account Type -->
+                  <div class="col-3 adminUserAccCell">Account Type</div>
+                  <div class="col-9 adminUserAccCell accountTypeCell">
+                    {{ user.guestID !== null ? "Guest" : "User" }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Small Screens Pic (d-sm-none) -->
+              <div class="col-12 adminUserAccCell d-sm-none adminUserAccImage adminUserAccSmall">
+                <img [src]="user.picture || '/thumbs/noProfile120.png'"
+                     class="adminUserAccCurrPhoto rounded"
+                     (click)="handleClickPhoto(getIdVal(user), getUserType(user))"
+                     referrerpolicy="no-referrer" />
+              </div>
+
+              <!-- Action Links / Buttons -->
+              <div class="col-12 adminUserAccDetailLinks">
+                <a [routerLink]="['/admin', getUserType(user), getIdVal(user), 'edit']"
+                   class="btn btn-light editAccLink"
+                   [class.editCurrUser]="isCurrentUser(user)"
+                   style="text-wrap: nowrap; text-decoration: none;">
+                  Edit Account <i class="bi bi-pencil-square"></i>
+                </a>
+                <a [routerLink]="['/admin', getUserType(user), getIdVal(user), 'orders']"
+                   class="btn btn-light"
+                   style="text-wrap: nowrap; text-decoration: none;">
+                  View Orders <i class="bi bi-arrow-right-short"></i>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="col-0 col-lg-2">
+            <!-- RSPACE -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mgFooter">Built with Angular and .NET Core 8.0</div>
+
+  </div>
+</div>
+

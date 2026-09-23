@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-sm-12 adminCont adminParallax adminParallaxUserOrders">
+
+    <div class="row" [class.clearBack]="gotOrders" [class.whiteBack]="!gotOrders">
+      <div class="col-12">
+        <app-admin-title-bar [titleText]="userDisplayName" [construction]="false"></app-admin-title-bar>
+      </div>
+      <div class="col-12 mainSection">
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="fetchErr text-center p-4">Loading...</div>
+
+        <!-- Error State -->
+        <div *ngIf="error" class="fetchErr text-center p-4 text-danger">Error: {{ error }}</div>
+
+        <!-- Orders Layout -->
+        <div *ngIf="!isLoading && !error" class="row">
+          
+          <!-- When we have orders -->
+          <ng-container *ngIf="gotOrders; else noOrders">
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+              <!-- LSPACE -->
+            </div>
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+              <app-back-link textPos="left"></app-back-link>
+              <div class="wrapLiners">
+                
+                <div *ngFor="let ord of userOrders" class="adminUserOrdersLiner whiteLiner">
+                  <div class="row OrderDetail">
+                    <div class="col-4">Order ID</div>
+                    <div class="col-8">{{ ord.id }}</div>
+                  </div>
+                  <div class="row OrderDetail">
+                    <div class="col-4">Order Status</div>
+                    <div class="col-8">{{ ord.orderStatus }}</div>
+                  </div>
+                  <div class="row OrderDetail">
+                    <div class="col-4">Placed On</div>
+                    <div class="col-8">{{ ord.orderPlacedDate }}</div>
+                  </div>
+                  <div class="row OrderDetail">
+                    <div class="col-4">Items</div>
+                    <div class="col-8">{{ ord.itemString }}</div>
+                  </div>
+                  <div class="row OrderDetail">
+                    <div class="col-4">Quantity Total</div>
+                    <div class="col-8">{{ ord.quantityTotal }} <span style="color: #919191;">Line items</span></div>
+                  </div>
+                  <div class="row OrderDetail">
+                    <div class="col-4">Price Total</div>
+                    <div class="col-8">${{ ord.priceTotal }}</div>
+                  </div>
+                  <div class="row OrderDetail">
+                    <div class="col-12 text-end">
+                      <a [routerLink]="['/admin/order', ord.id]" class="btn btn-light" style="text-wrap: nowrap; text-decoration: none;">
+                        View Details <i class="bi bi-arrow-right-short"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3">
+              <!-- RSPACE -->
+            </div>
+          </ng-container>
+
+          <!-- When we have NO orders -->
+          <ng-template #noOrders>
+            <div class="col-12">
+              <div class="contNoOrders">
+                <div class="barNoOrders"><!-- LSPACE --></div>
+                <div class="boxNoOrders text-center">
+                  <div class="noneAtMoment">(None at the moment)</div>
+                  <app-back-link textPos="center" btnClasses="btn btn-secondary"></app-back-link>
+                </div>
+                <div class="barNoOrders"><!-- RSPACE --></div>
+              </div>
+            </div>
+          </ng-template>
+
+        </div>
+
+      </div>
+
+      <div class="mgFooter">Built with Angular and .NET Core 8.0</div>
+    </div>
+
+  </div>
+</div>
+

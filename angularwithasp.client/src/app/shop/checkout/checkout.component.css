@@ -1,0 +1,22 @@
+/* styles for Checkout */
+
+.checkoutTitle{
+    /* border:3px dashed purple; */
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.checkoutLines{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.shipHeading{
+    font-size: 14px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+}

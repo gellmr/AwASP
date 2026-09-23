@@ -1,0 +1,22 @@
+<div>
+  <div id="shopLayout" class="container" [ngClass]="backCss">
+    <div class="row">
+      <app-site-nav-bar></app-site-nav-bar>
+    </div>
+
+    <div class="row shopMain mt-4">
+      <app-categories-menu></app-categories-menu>
+      
+      <div class="col-0 col-md-1 d-none d-md-block"></div>
+      
+      <div class="col-12 col-md-8 col-lg-6 shopLayoutTransparent bgRegularTransparent">
+        <router-outlet></router-outlet>
+      </div>
+      
+      <div class="col-0 col-lg-2 d-none d-lg-block"></div>
+    </div>
+    
+    <hr />
+    <app-footer></app-footer>
+  </div>
+</div>

@@ -1,0 +1,158 @@
+<div class="row" id="myOrdDetailPage">
+  
+  <div class="col-12 text-center" style="margin-bottom: 6px;">
+    <h2>Order #{{ orderid }}</h2>
+  </div>
+
+  <app-my-orders-show-account-info *ngIf="ord"
+    [accType]="accType"
+    [idval]="idval"
+    [fullname]="fullname"
+    [email]="email"
+    [devMode]="devMode">
+  </app-my-orders-show-account-info>
+
+  <div class="myOrderDetailLines col-12">
+    <app-back-link textPos="left"></app-back-link>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="fetchErr col-12">Loading...</div>
+
+    <!-- Error State -->
+    <div *ngIf="!isLoading && error" class="fetchErr col-12">Error: {{ error.message }}</div>
+
+    <!-- No Order Found State -->
+    <div *ngIf="!isLoading && !error && !ord" class="fetchErr col-12">
+      <h5 style="margin-top: 12px;">(No Order ID)</h5>
+      <div style="height: 250px;">&nbsp;</div>
+    </div>
+
+    <!-- Order Details Markup -->
+    <div *ngIf="!isLoading && !error && ord" class="col-12">
+      
+      <!-- Card Details Header -->
+      <div class="myOrdDetailImageHead">
+        <div class="row">
+          <div class="col-12">
+
+            <div class="col-12 myOrdDetailRow">
+              <div class="row">
+                <div class="col-3">Order Number</div>
+                <div class="col-9" style="font-weight: 600;">{{ ord.id }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 myOrdDetailRow">
+              <div class="row">
+                <div class="col-3">Status</div>
+                <div class="col-9">{{ ord.orderStatus }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 myOrdDetailRow">
+              <div class="row">
+                <div class="col-3">Placed Date</div>
+                <div class="col-9">
+                  {{ displayDateObj(ord.orderPlacedDate).datePart }}
+                  <span style="color: #919191;">{{ displayDateObj(ord.orderPlacedDate).tzPart }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 myOrdDetailRow">
+              <div class="row">
+                <div class="col-3">Price Total</div>
+                <div class="col-9">$ {{ ord.priceTotal }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 myOrdDetailRow">
+              <div class="row">
+                <div class="col-3">Total Items</div>
+                <div class="col-9">{{ ord.quantityTotal }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 myOrdDetailRow">
+              <div class="row">
+                <div class="col-3">Ship to:</div>
+                <div class="col-9 shipAddy">{{ getShipAddress() }}</div>
+              </div>
+            </div>
+
+            <div class="col-12 myOrdDetailRow">
+              <div class="row">
+                <div class="col-3">Billing Address:</div>
+                <div class="col-9 shipAddy">{{ getBillAddress() }}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Table list -->
+      <div class="row">
+        <div class="col-12" style="padding-bottom: 10px; padding-top: 10px;">
+          <div class="myOrdDetailImageBody">
+
+            <!-- Table Header -->
+            <div class="row myOrdDetailImageRow" style="padding-top: 5px;">
+              <div class="col-2 myOrdDetailImageCell">
+                <b>Price</b>
+              </div>
+              <div class="col-3 myOrdDetailImageCell">
+                <b>Item</b>
+              </div>
+              <div class="col-2 myOrdDetailImageCell">
+                <b>Qty</b>
+              </div>
+              <div class="col-2 myOrdDetailImageCell">
+                <b>Total</b>
+              </div>
+              <div class="col-3 myOrdDetailImageCell" style="text-align: center;">
+                <!-- Image -->
+              </div>
+            </div>
+            <hr style="margin-top: 5px; margin-bottom: 10px;" />
+
+            <!-- Table Rows -->
+            <div class="row myOrdDetailImageRow" *ngFor="let op of ord.orderedProducts">
+              <div class="col-2 myOrdDetailImageCell">
+                <span class="mgLight">${{ op.inStockProduct.price }}</span>
+              </div>
+              <div class="col-3 myOrdDetailImageCell myOrdDetailIspTitle">
+                <b>{{ op.inStockProduct.title }}</b>
+              </div>
+              <div class="col-2 myOrdDetailImageCell">
+                <span class="mgLight">{{ op.quantity }}</span>
+              </div>
+              <div class="col-2 myOrdDetailImageCell">
+                <span class="mgLight">${{ op.inStockProduct.price * op.quantity }}</span>
+              </div>
+              <div class="col-3 myOrdDetailImageCell" style="text-align: center;">
+                <img [src]="op.inStockProduct.image" class="rounded" style="width: 35px;" alt="Product Thumb" />
+              </div>
+            </div>
+
+            <hr style="margin-top: 5px; margin-bottom: 10px;" />
+
+            <!-- Table Footer Totals -->
+            <div class="row myOrdDetailImageRow" style="padding-bottom: 5px;">
+              <div class="col-2 myOrdDetailImageCell">&nbsp;</div>
+              <div class="col-3 myOrdDetailImageCell">&nbsp;</div>
+              <div class="col-2 myOrdDetailImageCell">{{ ord.quantityTotal }}</div>
+              <div class="col-2 myOrdDetailImageCell">
+                $<b>{{ ord.priceTotal }}</b>
+              </div>
+              <div class="col-3 myOrdDetailImageCell" style="text-align: center;">&nbsp;</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

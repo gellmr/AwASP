@@ -1,0 +1,16 @@
+.git
+.github
+.vs/
+.vscode/
+gcp/
+README.md
+
+# Ignore build artifacts for both frontend and backend
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+
+# Ignore local appsettings that shouldn't be deployed
+ReactWithASP.Server/appsettings.Development.json
+ReactWithASP.Server/appsettings.Test.json

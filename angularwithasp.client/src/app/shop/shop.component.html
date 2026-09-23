@@ -1,0 +1,30 @@
+<app-product-search-box [searchTerm]="searchTerm" (searchChange)="handleSearchChange($event)"></app-product-search-box>
+
+<div class="shopSearchResult">
+  <app-pagination-links class="cartPageCenter" [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
+
+  <div *ngIf="isLoading" class="fetchErr">
+    <div class="spinner-border spinner-border-sm" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    &nbsp;Loading
+  </div>
+
+  <div *ngIf="error" class="fetchErr">
+    Error: {{ error.message }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && inStockProdThisPage.length === 0" class="fetchErr">
+    ( Search returned no results )
+  </div>
+
+  <ng-container *ngIf="!isLoading && !error && inStockProdThisPage.length > 0">
+    <app-in-stock-product-can-add *ngFor="let prod of inStockProdThisPage" [product]="prod"></app-in-stock-product-can-add>
+  </ng-container>
+
+  <app-pagination-links class="cartPageCenter" [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
+  
+  <div class="cartPageCenter" *ngIf="gotItems" style="margin-top: 20px;">
+    <app-proceed-cart-btn></app-proceed-cart-btn>
+  </div>
+</div>

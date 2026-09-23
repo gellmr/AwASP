@@ -1,0 +1,36 @@
+.adminProductsParallax {
+}
+
+#adminLayout .adminProductsParallax h4 {
+  color: #272727;
+  font-size: 30px;
+  width: 100%;
+  padding: 10px;
+  padding-top: 10px;
+  background: linear-gradient(to right, transparent, #ffffff38, transparent);
+}
+
+.adminProductCell {
+  padding-bottom: 8px;
+  padding-right: 25px;
+  align-self: center;
+}
+
+.adminProdImage {
+  text-align: center;
+}
+
+.adminProdImage img {
+  margin-top: 5px;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #f6f6f6;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+.mgFooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

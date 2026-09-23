@@ -1,0 +1,124 @@
+<div class="row">
+  <div class="col-sm-12 adminCont adminParallax adminParallaxUserEdit">
+
+    <div class="row innerRow">
+      <div class="col-12">
+        <app-admin-title-bar titleText="Edit Account" [construction]="false"></app-admin-title-bar>
+      </div>
+      <div class="col-12 mainSection">
+        
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="fetchErr text-center p-4">Loading...</div>
+
+        <!-- Error State -->
+        <div *ngIf="error" class="fetchErr text-center p-4 text-danger">Error: {{ error }}</div>
+
+        <!-- Main Account form layout -->
+        <div *ngIf="!isLoading && !error && userAccount" class="row">
+          <div class="col-0 col-sm-1 col-md-2 col-lg-2">
+            <!-- LSPACE -->
+          </div>
+          <div class="col-12 col-sm-10 col-md-8 col-lg-8 adminUserEditWrap">
+            
+            <app-drag-drop-user-pic-modal (onSuccess)="handleModalSuccess($event)"></app-drag-drop-user-pic-modal>
+            
+            <app-back-link textPos="left"></app-back-link>
+
+            <div class="row adminUserEditRow" [class.currUserRow]="isCurrentUser">
+              
+              <!-- Large Screens Picture (d-none d-sm-flex) -->
+              <div class="col-4 adminUserEditCell d-none d-sm-flex adminUserEditImage adminUserEditLarge">
+                <img [src]="userAccount.picture || '/thumbs/noProfile120.png'"
+                     class="adminUserEditCurrPhoto rounded img-fluid"
+                     (click)="handleClickPhoto()"
+                     style="max-width: 120px; max-height: 120px; object-fit: cover;"
+                     referrerpolicy="no-referrer" />
+              </div>
+
+              <!-- Details Box -->
+              <div class="col-12 col-sm-8">
+                <div class="row adminUserEditDetailsBox">
+                  
+                  <!-- Full Name / Logged in as -->
+                  <div class="col-3 adminUserEditCell">
+                    {{ isCurrentUser ? "(Logged in as) " : 'Full Name' }}
+                  </div>
+                  <div class="col-9 adminUserEditCell">
+                    <input type="text" id="editFullName" class="form-control" [value]="userAccount.fullName" (input)="onFieldChange('fullName', $event)" />
+                  </div>
+
+                  <!-- UserName -->
+                  <div class="col-3 adminUserEditCell">UserName</div>
+                  <div class="col-9 adminUserEditCell">
+                    <input type="text" id="editUserName" class="form-control" [value]="userAccount.userName" readonly disabled="disabled" />
+                  </div>
+
+                  <!-- User ID (only for non-guest) -->
+                  <ng-container *ngIf="userAccount.id">
+                    <div class="col-3 adminUserEditCell">User&nbsp;ID</div>
+                    <div class="col-9 adminUserEditCell mgGuid">
+                      <input type="text" id="editUserId" class="form-control" [value]="userAccount.id" readonly disabled="disabled" />
+                    </div>
+                  </ng-container>
+
+                  <!-- Guest ID (only for guest) -->
+                  <ng-container *ngIf="userAccount.guestID">
+                    <div class="col-3 adminUserEditCell">Guest&nbsp;ID</div>
+                    <div class="col-9 adminUserEditCell mgGuid">
+                      <input type="text" id="editGuestId" class="form-control" [value]="userAccount.guestID" readonly disabled="disabled" />
+                    </div>
+                  </ng-container>
+
+                  <!-- Phone (only for user) -->
+                  <ng-container *ngIf="!userAccount.guestID">
+                    <div class="col-3 adminUserEditCell">Phone</div>
+                    <div class="col-9 adminUserEditCell">
+                      <input type="text" id="editPhone" class="form-control" [value]="userAccount.phoneNumber || ''" (input)="onFieldChange('phoneNumber', $event)" />
+                    </div>
+                  </ng-container>
+
+                  <!-- Email -->
+                  <div class="col-3 adminUserEditCell">Email</div>
+                  <div class="col-9 adminUserEditCell">
+                    <input type="email" id="editEmail" class="form-control" [value]="userAccount.email" (input)="onFieldChange('email', $event)" />
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Action Links / Buttons -->
+              <div class="col-12 adminUserEditCell text-end">
+                <a [routerLink]="['/admin', usertype, idval, 'orders']" class="btn btn-light" style="text-wrap: nowrap; text-decoration: none; margin-bottom: 5px;">
+                  View Orders
+                </a>
+                <a href="javascript:void(0)" class="btn btn-light temp-btn-disabled" title="Coming Soon!" style="text-wrap: nowrap; text-decoration: none; margin-bottom: 5px; margin-left: 6px;">
+                  View Payments
+                </a>
+              </div>
+
+              <!-- Small Screens Picture (d-sm-none) -->
+              <div class="col-12 adminUserEditCell d-sm-none adminUserEditImage adminUserEditSmall">
+                <img [src]="userAccount.picture || '/thumbs/noProfile120.png'"
+                     class="adminUserEditCurrPhoto rounded img-fluid"
+                     (click)="handleClickPhoto()"
+                     style="max-width: 120px; max-height: 120px; object-fit: cover;"
+                     referrerpolicy="no-referrer" />
+              </div>
+
+            </div>
+
+          </div>
+          <div class="col-0 col-sm-1 col-md-2 col-lg-2">
+            <!-- RSPACE -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mgFooter">Built with Angular and .NET Core 8.0</div>
+
+  </div>
+</div>
+

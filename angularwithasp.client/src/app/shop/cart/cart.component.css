@@ -1,0 +1,16 @@
+/* styles for Cart */
+
+.cartTitle{
+    /* border: 3px dashed purple; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.cartFooter
+{
+    /* border:3px dashed green; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

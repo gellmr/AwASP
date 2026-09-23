@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-sm-12 adminCont adminParallax adminProductsParallax">
+
+    <div class="row">
+      <div class="col-12">
+        <app-admin-title-bar titleText="Products" [construction]="false"></app-admin-title-bar>
+      </div>
+      <div class="col-12 text-center">
+        
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="fetchErr text-center p-4">Loading...</div>
+
+        <!-- Error State -->
+        <div *ngIf="error" class="fetchErr text-center p-4 text-danger">Error: {{ error }}</div>
+
+        <!-- Products List Markup -->
+        <div *ngIf="!isLoading && !error" class="row text-start">
+          <div class="col-0 col-lg-2">
+            <!-- LSPACE -->
+          </div>
+          <div class="col-12 col-lg-8 adminProductsAll">
+            
+            <div *ngFor="let prod of adminProducts" class="row adminProductRow align-items-center">
+              <!-- Large screen image -->
+              <div class="col-4 adminProductCell d-none d-sm-block adminProdImage">
+                <img [src]="prod.image" class="rounded img-fluid" alt="{{ prod.title }}" />
+              </div>
+              <!-- Content -->
+              <div class="col-12 col-sm-8">
+                <div class="row adminProductDetailsBox">
+                  <div class="col-4 adminProductCell font-weight-bold">Product ID</div>  <div class="col-8 adminProductCell">{{ prod.id }}</div>
+                  <div class="col-4 adminProductCell font-weight-bold">Title</div>       <div class="col-8 adminProductCell">{{ prod.title }}</div>
+                  <div class="col-4 adminProductCell font-weight-bold">Category</div>    <div class="col-8 adminProductCell">{{ prod.category }}</div>
+                  <div class="col-4 adminProductCell font-weight-bold">Price</div>       <div class="col-8 adminProductCell">{{ prod.price | number:'1.2-2' }}</div>
+                  <div class="col-4 adminProductCell font-weight-bold">Description</div> <div class="col-8 adminProductCell">{{ prod.description }}</div>
+                </div>
+              </div>
+              <!-- Small screen image -->
+              <div class="col-12 adminProductCell d-sm-none adminProdImage">
+                <img [src]="prod.image" class="rounded img-fluid" alt="{{ prod.title }}" />
+              </div>
+            </div>
+
+          </div>
+          <div class="col-0 col-lg-2">
+            <!-- RSPACE -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mgFooter" style="margin-top: 150px;">Built with Angular and .NET Core 8.0</div>
+    
+  </div>
+</div>
+

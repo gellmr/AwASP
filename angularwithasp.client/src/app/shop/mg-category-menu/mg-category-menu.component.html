@@ -1,0 +1,7 @@
+<div class="btn-group mg-category-menu-r" [class.btn-group-vertical]="isVertical" role="group">
+  <a [routerLink]="['/']" 
+     [routerLinkActiveOptions]="{exact: true}" 
+     routerLinkActive="active" 
+     class="btn btn-light">All Products</a>
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,16 @@
+/* styles for AdminOrders */
+
+.adminOrdersTable td{
+  cursor: pointer;
+}
+
+.backlogPagCent{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.adminOrderPagin{
+    margin-top:8px;
+    margin-bottom:8px;
+}

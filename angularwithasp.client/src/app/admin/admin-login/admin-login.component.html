@@ -1,0 +1,41 @@
+<div class="row text-center mt-3">
+  <div class="col-12" style="margin-bottom: 6px;">
+    <h4>Admin Console</h4>
+  </div>
+
+  <div class="col-12 d-flex justify-content-center">
+    <form class="mg-admin-login-form w-100" (ngSubmit)="loginClick()" style="max-width: 600px;">
+      
+      <div class="row">
+        <!-- Error Message -->
+        <div class="col-12" *ngIf="error">
+          <span class="loginErrStyle d-block text-center">{{ error }}</span>
+        </div>
+
+        <!-- Username Input -->
+        <div class="col-12 col-md-6 mb-3" style="text-align: left;">
+          <label class="form-label">&nbsp;&nbsp;Username</label>
+          <input type="email" class="form-control" placeholder="Please enter your username" [(ngModel)]="vipUserName" name="username" />
+        </div>
+
+        <!-- Password Input -->
+        <div class="col-12 col-md-6 mb-3" style="text-align: left;">
+          <label class="form-label">&nbsp;&nbsp;Password</label>
+          <div class="input-group">
+            <input type="password" class="form-control" placeholder="Enter your password" [(ngModel)]="vipPassword" name="password" (keydown)="handleKeyDown($event)" />
+            <button id="loginSubmit" type="submit" class="btn btn-outline-primary" style="min-width: 90px;" [disabled]="isLoading">Login</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 40px;"></div>
+
+        <!-- Other Sign In Options (Large Screen) -->
+        <div class="d-sm-flex align-items-center justify-content-between" style="margin-top: 10px; width: 100%;">
+          <div class="me-auto" style="margin-bottom: 10px; text-align: left; padding-left:10px;">Other sign-in options:</div>
+          <app-google-login-comp></app-google-login-comp>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>

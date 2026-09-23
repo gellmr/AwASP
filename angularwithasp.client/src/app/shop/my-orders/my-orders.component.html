@@ -1,0 +1,130 @@
+<div class="row">
+  <div class="col-12 text-center" style="padding-left: 15px; padding-bottom: 5px;">
+    <h2 style="display: inline-block; margin-right: 10px;">My Orders</h2>
+  </div>
+  
+  <!-- Account Info component -->
+  <app-my-orders-show-account-info *ngIf="orders.length > 0"
+    [accType]="accType"
+    [idval]="idval"
+    [fullname]="fullname"
+    [email]="email"
+    [devMode]="devMode">
+  </app-my-orders-show-account-info>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="fetchErr col-12">Loading...</div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && error" class="fetchErr col-12">Error: {{ error.message }}</div>
+
+  <!-- No Orders Found State -->
+  <div *ngIf="!isLoading && !error && !orders" class="fetchErr col-12">( Could not find any Orders! )</div>
+
+  <!-- Empty List State -->
+  <ng-container *ngIf="!isLoading && !error && orders && orders.length === 0">
+    <div class="ordersEmptyMsg col-12 text-center">
+      <div>{{ emptyMsgText1 }}</div>
+      <div>{{ emptyMsgText2 }}</div>
+    </div>
+    <div class="col-12" style="height: 250px;">&nbsp;</div>
+  </ng-container>
+
+  <!-- List Mapped State with Pagination -->
+  <div *ngIf="!isLoading && !error && orders && orders.length > 0" class="myOrdersLines col-12" style="margin-top: 10px;">
+    <app-pagination-links [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
+    
+    <div style="margin-bottom: 10px;">
+      <div class="col-12" *ngFor="let ord of ordersThisPage">
+        <div class="myOrdersRect">
+          <div class="row">
+            <div class="col-12">
+
+              <!-- Order Number -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Order Number</div>
+                  <div class="col-8 col-sm-9" style="font-weight: 600;">{{ ord.id }}</div>
+                </div>
+              </div>
+
+              <!-- Status -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Status</div>
+                  <div class="col-8 col-sm-9">{{ ord.orderStatus }}</div>
+                </div>
+              </div>
+
+              <!-- Placed Date -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Placed Date</div>
+                  <div class="col-8 col-sm-9">
+                    {{ displayDateObj(ord.orderPlacedDate).datePart }}
+                    <span style="color: #919191;">{{ displayDateObj(ord.orderPlacedDate).tzPart }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Items -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Items</div>
+                  <div class="col-8 col-sm-9">{{ ord.itemString }}</div>
+                </div>
+              </div>
+
+              <!-- Total Items -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Total Items</div>
+                  <div class="col-8 col-sm-9">{{ ord.quantityTotal }}</div>
+                </div>
+              </div>
+
+              <!-- Price Total -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Price Total</div>
+                  <div class="col-8 col-sm-9">$ {{ ord.priceTotal }}</div>
+                </div>
+              </div>
+
+              <!-- Ship To -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Ship To:</div>
+                  <div class="col-8 col-sm-9 shipToDetail">{{ getShipAddress(ord) }}</div>
+                </div>
+              </div>
+
+              <!-- Billing Address -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3">Billing Address:</div>
+                  <div class="col-8 col-sm-9 shipToDetail">{{ getBillAddress(ord) }}</div>
+                </div>
+              </div>
+
+              <!-- View Details Button -->
+              <div class="col-12 myOrdRow">
+                <div class="row">
+                  <div class="col-4 col-sm-3"></div>
+                  <div class="col-8 col-sm-9" style="text-align: right; padding-bottom: 10px; padding-right: 25px;">
+                    <a [routerLink]="['/myorder', ord.id]" class="btn btn-light myOrdViewDetBtn" style="text-wrap: nowrap; text-decoration: none;">
+                      View Details <i class="bi bi-arrow-right-short"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-pagination-links [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
+  </div>
+</div>

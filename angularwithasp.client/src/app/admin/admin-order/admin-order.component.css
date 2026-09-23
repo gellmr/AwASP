@@ -1,0 +1,145 @@
+.adminParallaxOrders {
+}
+
+#adminLayout .adminParallaxOrders h4 {
+  color: #272727;
+  font-size: 30px;
+  width: 100%;
+  padding: 10px;
+  padding-top: 10px;
+  background: linear-gradient(to right, transparent, #ffffff38, transparent);
+}
+
+.AdminOrderDetailRow {
+  text-align: left;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fffffff2;
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.2));
+}
+
+button.accordion-button {
+  background-color: #ffffffad;
+}
+
+.myAdminOrdDetailImageRow {
+  background-color: transparent !important;
+}
+
+.myAdminOrdDetailImageRow.myAdminOrdDetailHead  {
+  background-color: transparent !important;
+}
+
+#adminOrderPage {
+  font-size: 9px;
+}
+
+.myAdminOrdDetailIspTitle {
+  font-size: 9px;
+}
+
+.accordion {
+  margin-bottom: 10px;
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.2));
+}
+
+.collapseDeet {
+  text-align: left;
+}
+
+.collapseDeet .row {
+  margin-bottom: 5px;
+}
+
+.AdminOrderDetailRow.AdminOrderDetailHeader .row {
+  margin-bottom: 5px;
+}
+
+.myAdminOrdDetailTitleHead{
+  margin-bottom:0px;
+  padding-bottom:10px;
+  padding-left:15px;
+}
+
+.myAdminOrdDetailHead {
+  font-weight: 700;
+  background-color: #f6f6f6 !important;
+  border-radius: 0px !important;
+  border-bottom: 1px solid gainsboro;
+}
+
+.myAdminOrdDetailFoot {
+  padding-top: 10px;
+  border-top: 1px solid gainsboro;
+}
+
+.grandTotal{
+  font-weight:500;
+}
+
+#adminOrderPage .myAdminOrdDetailImageRow {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  background-color: #ffffffd6;
+}
+
+#adminOrderPage .myAdminOrdDetailImageCell b {
+  font-weight: 400;
+}
+
+#adminOrderPage .myAdminOrdDetailImageCell .mgLight {
+  font-weight: 400;
+  color: #616161;
+}
+
+#adminOrderPage .myAdminOrdDetailImageCell:first-child {
+  padding-left: 25px;
+  font-weight: 600;
+}
+
+#adminOrderPage .myAdminOrdDetailImageCell:last-child {
+  padding-left: 0px;
+}
+
+.mgFooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@media (min-width: 370px) {
+  #adminOrderPage {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 576px) {
+  #adminOrderPage {
+    font-size: 11px;
+  }
+  .myAdminOrdDetailIspTitle {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  #adminOrderPage {
+    font-size: 12px;
+  }
+  .myAdminOrdDetailIspTitle {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 992px) {
+  #adminOrderPage {
+    font-size: 14px;
+  }
+  .myAdminOrdDetailIspTitle {
+    font-size: 12px;
+  }
+}
+

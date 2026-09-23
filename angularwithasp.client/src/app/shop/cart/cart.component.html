@@ -1,0 +1,28 @@
+<div style="min-height: 780px;">
+  <h2 class="cartTitle" style="margin-top: 5px;">{{ cartLen }}</h2>
+  
+  <div *ngIf="showTopCheckoutBtn" class="proceedCheckoutBar">
+    <div class="btn-group" role="group">
+      <button class="btn btn-light" style="font-size: 13px; color: #777777;" (click)="clear()">
+        <i class="bi bi-trash3"></i>&nbsp;Clear Cart
+      </button>
+      <app-proceed-checkout-btn></app-proceed-checkout-btn>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="row">
+      <div class="cartContents col-12">
+        <div *ngIf="cartLines.length === 0" class="cartEmptyMsg" style="text-align: center;">&nbsp;</div>
+        
+        <app-cart-product *ngFor="let row of cartLines" [cartLine]="row"></app-cart-product>
+        
+        <app-cart-summary-line *ngIf="cartLines.length > 0" [totalQuantity]="totalQty" [totalPrice]="totalPrice"></app-cart-summary-line>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="gotItems" class="cartFooter" style="margin-top: 5px;">
+    <app-proceed-checkout-btn></app-proceed-checkout-btn>
+  </div>
+</div>

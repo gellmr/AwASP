@@ -1,0 +1,30 @@
+<div class="d-block d-sm-none" style="padding: 0px">
+  <app-mg-category-menu [isVertical]="true">
+    <ng-container *ngTemplateOutlet="menuContent"></ng-container>
+  </app-mg-category-menu>
+</div>
+<div class="d-none d-sm-block d-md-none" style="padding: 0px">
+  <app-mg-category-menu [isVertical]="false">
+    <ng-container *ngTemplateOutlet="menuContent"></ng-container>
+  </app-mg-category-menu>
+</div>
+<div class="d-none d-md-block col-md-3 w-100" style="padding: 0px">
+  <app-mg-category-menu [isVertical]="true">
+    <ng-container *ngTemplateOutlet="menuContent"></ng-container>
+  </app-mg-category-menu>
+</div>
+
+<ng-template #menuContent>
+  <div *ngIf="isLoading" class="fetchErr">Loading...</div>
+  <div *ngIf="error" class="fetchErr">Error: {{error.message}}</div>
+  <ng-container *ngIf="!isLoading && !error && categories && categories.length > 0">
+    <a *ngFor="let cat of categories" 
+       [routerLink]="['/category', cat.segment]" 
+       routerLinkActive="active"
+       class="btn btn-light" 
+       style="text-align: left; border-radius: 0px;">
+      <app-cat-caret></app-cat-caret>
+      {{cat.title}}
+    </a>
+  </ng-container>
+</ng-template>

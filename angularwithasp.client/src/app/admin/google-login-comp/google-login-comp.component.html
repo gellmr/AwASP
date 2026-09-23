@@ -1,0 +1,11 @@
+<div>
+  <div *ngIf="isLoading" class="fetchErr">Loading...</div>
+  
+  <div *ngIf="!isLoading">
+    <div *ngIf="error" class="mgGoogleTokenErrSpan mb-2" style="color: red; font-size: 13px;">
+      Error: {{ error }} Try again?
+    </div>
+    
+    <div id="google-btn-container"></div>
+  </div>
+</div>

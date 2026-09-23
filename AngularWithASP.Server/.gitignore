@@ -1,0 +1,24 @@
+
+# Ignore the Debug folder, and contents...
+bin/Debug/**
+
+# Ignore the obj and bin folder...
+obj/**
+bin/**
+
+# Dont track .pubxml files they can contain sensitive information
+*.pubxml
+*.pubxml.user
+
+# Ignore project per-user settings in visual studio
+*.csproj.user
+
+# Ignore external JSON IConfiguration files
+appsettings.Production.json
+appsettings.Development.json
+appsettings.Test.json
+appsettings.json
+
+# Ignore uploads folder and contents
+uploads/
+uploads/**

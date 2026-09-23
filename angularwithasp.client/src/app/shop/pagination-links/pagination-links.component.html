@@ -1,0 +1,10 @@
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group me-2" role="group" aria-label="First group">
+    <a *ngFor="let p of pages"
+       [routerLink]="[myRoute, p]"
+       class="btn"
+       [ngClass]="currPage === p ? 'btn-primary' : 'btn-default'">
+      {{ p }}
+    </a>
+  </div>
+</div>
