@@ -54,6 +54,11 @@ if ($Up) {
     if (![string]::IsNullOrWhiteSpace($projectNum)) {
         & cmd /c "gcloud projects add-iam-policy-binding $ProjectId --member=serviceAccount:service-$projectNum@serverless-robot-prod.iam.gserviceaccount.com --role=roles/compute.networkUser --condition=None 2>NUL" | Out-Null
     }
+
+    Write-Host "`n[UP] Configuring Firebase Hosting site target..." -ForegroundColor Green
+    # Ensure Firebase hosting site target is linked so deployments never prompt interactively
+    & cmd /c "npx firebase-tools target:apply hosting awasp-gcp awasp-gcp --project $ProjectId 2>NUL" | Out-Null
+
     Write-Host "`n[UP] Checking Artifact Registry repository '$RepoName'..." -ForegroundColor Green
     
     # Run silently and check exit code
@@ -77,7 +82,7 @@ if ($Up) {
         Write-Host "Creating Storage Bucket '$BucketName'..."
         gcloud storage buckets create "gs://$BucketName" --location=$Region --uniform-bucket-level-access
 
-        Write-Host "Making Storage Bucket publicly readable (for React to load images)..."
+        Write-Host "Making Storage Bucket publicly readable (for FE app to load images)..."
         gcloud storage buckets add-iam-policy-binding "gs://$BucketName" `
             --member="allUsers" `
             --role="roles/storage.objectViewer"

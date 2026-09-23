@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "awasp-gcp"
-  }
+  },
+  "targets": {
+    "awasp-gcp": {
+      "hosting": {
+        "awasp-gcp": [
+          "awasp-gcp"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
