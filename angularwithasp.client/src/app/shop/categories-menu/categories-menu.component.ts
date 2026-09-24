@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, HostBinding } from '@angular/core';
+import { Component, OnInit, inject, HostBinding, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +21,7 @@ export class CategoriesMenuComponent implements OnInit {
   error: any = null;
 
   private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.fetchCategories();
@@ -30,11 +31,17 @@ export class CategoriesMenuComponent implements OnInit {
     this.http.get<any[]>('/api/categories').subscribe({
       next: (data) => {
         this.categories = data;
-        this.isLoading = false;
+        setTimeout(() => {
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        });
       },
       error: (err) => {
         this.error = err;
-        this.isLoading = false;
+        setTimeout(() => {
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        });
       }
     });
   }
