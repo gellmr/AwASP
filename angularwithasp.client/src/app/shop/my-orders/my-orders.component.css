@@ -1,1 +1,6 @@
 /* styles for MyOrders */
+
+.mgFooter{
+  display: flex;
+  justify-content: center;
+}
