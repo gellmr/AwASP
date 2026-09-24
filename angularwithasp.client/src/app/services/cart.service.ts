@@ -70,6 +70,10 @@ export class CartService {
     return this.cartLines;
   }
 
+  getOrders(): any[] {
+    return this.orders;
+  }
+
   fetchGuest(): Observable<any> {
     return this.http.get<any>('/api/guest').pipe(
       tap({
