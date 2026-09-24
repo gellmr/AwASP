@@ -29,6 +29,9 @@ export class ShopComponent implements OnInit, OnDestroy {
   gotItems = false;
   
   private currentCategory: string | null = null;
+  private lastFetchedCategory: string | null = null;
+  private lastFetchedSearchTerm: string = '';
+  private gotItemsFromServer = false;
 
   private http = inject(HttpClient);
   private route = inject(ActivatedRoute);
@@ -50,7 +53,12 @@ export class ShopComponent implements OnInit, OnDestroy {
       this.currPage = page ? parseInt(page, 10) : 1;
       this.myRoute = category ? `/category/${category}/` : '/';
       
-      this.fetchProducts(category);
+      if (category !== this.lastFetchedCategory || this.searchTerm !== this.lastFetchedSearchTerm || !this.gotItemsFromServer) {
+        this.fetchProducts(category);
+      } else {
+        this.sliceProductsForPage();
+        this.cdr.markForCheck();
+      }
     });
 
     this.cartSub = this.cartService.cart$.subscribe(cartLines => {
@@ -78,27 +86,36 @@ export class ShopComponent implements OnInit, OnDestroy {
     }
   }
 
+  sliceProductsForPage() {
+    const prodPerPage = 4;
+    const maxWholePageNum = Math.floor(this.products.length / prodPerPage);
+    const extraPage = (this.products.length % prodPerPage === 0) ? 0 : 1;
+    this.numPages = maxWholePageNum + extraPage || 1;
+    
+    const pageIntP = (this.currPage > this.numPages) ? this.numPages : this.currPage;
+    const pageIdx = pageIntP - 1;
+    const startIdx = prodPerPage * pageIdx;
+    const endIdx = startIdx + prodPerPage;
+    
+    this.inStockProdThisPage = this.products.slice(startIdx, endIdx);
+  }
+
   fetchProducts(category: string | null) {
-    this.isLoading = true;
+    if (!this.gotItemsFromServer) {
+      this.isLoading = true;
+    }
     const basePath = category ? `/api/products/category/${category}` : '/api/products';
     const query = this.searchTerm ? `?search=${encodeURIComponent(this.searchTerm)}` : '';
     const url = `${basePath}${query}`;
     
+    this.lastFetchedCategory = category;
+    this.lastFetchedSearchTerm = this.searchTerm;
+    this.gotItemsFromServer = true;
+
     this.http.get<any[]>(url).subscribe({
       next: (data) => {
         this.products = data;
-        
-        const prodPerPage = 4;
-        const maxWholePageNum = Math.floor(this.products.length / prodPerPage);
-        const extraPage = (this.products.length % prodPerPage === 0) ? 0 : 1;
-        this.numPages = maxWholePageNum + extraPage || 1;
-        
-        const pageIntP = (this.currPage > maxWholePageNum + extraPage) ? this.numPages : this.currPage;
-        const pageIdx = pageIntP - 1;
-        const startIdx = prodPerPage * pageIdx;
-        const endIdx = startIdx + prodPerPage;
-        
-        this.inStockProdThisPage = this.products.slice(startIdx, endIdx);
+        this.sliceProductsForPage();
         this.isLoading = false;
         this.cdr.markForCheck();
       },
