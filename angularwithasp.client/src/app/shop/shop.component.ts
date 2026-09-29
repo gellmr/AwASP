@@ -28,23 +28,27 @@ export class ShopComponent implements OnInit, OnDestroy {
   myRoute = '/';
   gotItems = false;
   
-  private currentCategory: string | null = null;
-  private lastFetchedCategory: string | null = null;
+  private currentCategory:       string | null = null;
+  private lastFetchedCategory:   string | null = null;
   private lastFetchedSearchTerm: string = '';
   private gotItemsFromServer = false;
 
-  private http = inject(HttpClient);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
+  // Use DI to get the services that we want
+  private http        = inject(HttpClient);
+  private route       = inject(ActivatedRoute);
+  private router      = inject(Router);
+  private cdr         = inject(ChangeDetectorRef);
   private cartService = inject(CartService);
+
   private cartSub = new Subscription();
 
   ngOnInit() {
+    // Listen to changes in the route URL.
     this.route.paramMap.subscribe(params => {
-      const category = params.get('category');
-      const page = params.get('page');
+      const category = params.get('category'); // detect if the category changed, in the route url.
+      const page = params.get('page');         // detect if the page changed, in the route url.
       
+      // Reset search filter if the user navigated to a different category
       if (category !== this.currentCategory) {
         this.searchTerm = '';
         this.currentCategory = category;
@@ -53,14 +57,16 @@ export class ShopComponent implements OnInit, OnDestroy {
       this.currPage = page ? parseInt(page, 10) : 1;
       this.myRoute = category ? `/category/${category}/` : '/';
       
+      // Optimization: Avoid redundant HTTP calls if filters haven't changed
       if (category !== this.lastFetchedCategory || this.searchTerm !== this.lastFetchedSearchTerm || !this.gotItemsFromServer) {
         this.fetchProducts(category);
       } else {
         this.sliceProductsForPage();
-        this.cdr.markForCheck();
+        this.cdr.markForCheck(); // Manually notify change detector for zoneless rendering optimization
       }
     });
 
+    // Subscribe to global cart state changes
     this.cartSub = this.cartService.cart$.subscribe(cartLines => {
       this.gotItems = cartLines.length > 0;
       this.cdr.markForCheck();
@@ -68,12 +74,14 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // Clean up subscriptions to prevent memory leaks when leaving the component
     this.cartSub.unsubscribe();
   }
 
   handleSearchChange(term: string) {
     this.searchTerm = term;
     if (this.currPage !== 1) {
+      // Reset back to page 1 on search change
       const category = this.route.snapshot.paramMap.get('category');
       if (category) {
         this.router.navigate(['/category', category]);
@@ -97,6 +105,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     const startIdx = prodPerPage * pageIdx;
     const endIdx = startIdx + prodPerPage;
     
+    // Extract subset of products for the active pagination page
     this.inStockProdThisPage = this.products.slice(startIdx, endIdx);
   }
 
@@ -112,12 +121,13 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.lastFetchedSearchTerm = this.searchTerm;
     this.gotItemsFromServer = true;
 
+    // Fetch product list via HttpClient Observable
     this.http.get<any[]>(url).subscribe({
       next: (data) => {
         this.products = data;
         this.sliceProductsForPage();
         this.isLoading = false;
-        this.cdr.markForCheck();
+        this.cdr.markForCheck(); // Trigger view update under zoneless change detection
       },
       error: (err) => {
         this.error = err;

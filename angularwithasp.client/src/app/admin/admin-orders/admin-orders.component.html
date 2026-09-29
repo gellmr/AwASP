@@ -19,8 +19,8 @@
         </div>
       </div>
 
-      <!-- Main content markup when loaded or if we already have records cached/optimistic -->
-      <div *ngIf="!error && (adminOrders.length > 0 || !isLoading)" class="adminOrderPMarkup">
+      <!-- Main content markup -->
+      <div *ngIf="!error" class="adminOrderPMarkup">
         
         <div class="backlogSearchCont">
           <app-search-input 

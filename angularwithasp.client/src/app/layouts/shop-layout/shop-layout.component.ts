@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { SiteNavBarComponent } from '../../nav/site-nav-bar/site-nav-bar.component';
 import { CategoriesMenuComponent } from '../../shop/categories-menu/categories-menu.component';
-import { FooterComponent } from '../../shop/footer/footer.component';
 import { CartService } from '../../services/cart.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -11,7 +10,7 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-shop-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, SiteNavBarComponent, CategoriesMenuComponent, FooterComponent],
+  imports: [CommonModule, RouterModule, SiteNavBarComponent, CategoriesMenuComponent],
   templateUrl: './shop-layout.component.html',
   styleUrl: './shop-layout.component.css'
 })
@@ -29,7 +28,10 @@ export class ShopLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.cartService.init();
+    // Bootstrap the shopping cart and session state sequentially
+    this.subscription.add(
+      this.cartService.init().subscribe()
+    );
 
     // 1. Subscribe to Router NavigationEnd to update styling based on active URL
     this.subscription.add(
