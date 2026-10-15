@@ -55,7 +55,7 @@ if ($Up) {
         & cmd /c "gcloud projects add-iam-policy-binding $ProjectId --member=serviceAccount:service-$projectNum@serverless-robot-prod.iam.gserviceaccount.com --role=roles/compute.networkUser --condition=None 2>NUL" | Out-Null
     }
 
-    Write-Host "`n[UP] Configuring Firebase Hosting site target..." -ForegroundColor Green
+    Write-Host "`n[UP] Configuring Firebase Hosting site target... (if this hangs try invoking manually: npx firebase-tools login)" -ForegroundColor Green
     # Ensure Firebase hosting site target is linked so deployments never prompt interactively
     & cmd /c "npx firebase-tools target:apply hosting awasp-gcp awasp-gcp --project $ProjectId 2>NUL" | Out-Null
 
