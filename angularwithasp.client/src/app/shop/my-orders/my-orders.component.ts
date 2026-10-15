@@ -52,7 +52,10 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
   }
 
   fetchOrders() {
-    this.isLoading = true;
+    // Only show loading state if we don't have orders cached yet.
+    if (this.orders.length === 0) {
+      this.isLoading = true;
+    }
 
     const guest = this.cartService.guest;
     if (guest) {

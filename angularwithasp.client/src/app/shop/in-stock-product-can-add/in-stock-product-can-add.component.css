@@ -1,1 +1,11 @@
 /* styles for InStockProductCanAdd */
+
+.mgImgThumb {
+  min-height: 100px;
+}
+
+.mgImgThumb img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}

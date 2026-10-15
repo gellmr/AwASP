@@ -111,6 +111,11 @@ namespace NUnitTests.SeleniumTests
         IWebElement clickableButton = wait.Until(ExpectedConditions.ElementToBeClickable(addBtn));
         clickableButton.Click(); // Add a second item
         wait.Until(ExpectedConditions.TextToBePresentInElement(medCartBtn, cartHasTwoItem));
+
+        // Click should have caused DOM tree teardown / rebuild. Therefore we must refresh our vars...
+        rows = driver.FindElements(By.CssSelector(inCartRows)).ToList();
+        row1 = rows[0];
+        summaryRow = rows[rows.Count - 1];
       }
       catch (WebDriverTimeoutException){
         Assert.Fail("Failed within Cart during IncrementInCart_QtyAndPriceUpdates test.");

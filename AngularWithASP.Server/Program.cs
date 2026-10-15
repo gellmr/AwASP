@@ -10,6 +10,8 @@ using AngularWithASP.Server.Domain;
 using AngularWithASP.Server.Domain.Abstract;
 using AngularWithASP.Server.Infrastructure;
 using System.Runtime;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 // Add Services to the DI container.
 var builder = WebApplication.CreateBuilder(args);
@@ -76,6 +78,17 @@ builder.Services.AddHttpClient<RandomUserMeApiClient>(client =>{
   client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 
+// Define a concurrency limiter policy. We can apply it to controller action by using a decorator.
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;  
+    options.AddConcurrencyLimiter("StrictRatePolicy", config => {
+        config.PermitLimit = 1;        // Only 1 execution at a time
+        config.QueueLimit = 0;         // Drop parallel requests immediately rather than holding them in a queue
+        config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+});
+
 // DI declarations
 builder.Services.AddScoped<IOrdersRepository, EFOrdersRepository>();
 builder.Services.AddScoped<ICartLineRepository, EFCartLineRepository>();
@@ -102,6 +115,7 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 //app.UseSession();
 app.MapControllers();
 

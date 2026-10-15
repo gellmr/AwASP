@@ -46,12 +46,12 @@ export class CartService
     {
       // We are transitioning to logged out (eg guest, or completely anonymous state)
       // Clear the user json object from local storage.
-      // Local myorders will become blank.
-      // Activate a new observer to track myorders for guest.
       try {
         localStorage.removeItem('user');
       }
       catch {}
+      // Local myorders will become blank.
+      // Activate a new observer to track myorders for guest.
       this.fetchMyOrders().subscribe(); // This forces a POST to /api/myorders/fetch-orders
     }
     else
@@ -71,7 +71,9 @@ export class CartService
 
   // Bootstrap the service state on app load sequentially and reactively
   init(): Observable<any> {
+    // Init the guest observable, fetching if required.
     const guest$ = this.guest ? of(this.guest) : this.fetchGuest();
+    // When guest is fully obtained, fetch the cart.
     return guest$.pipe(
       switchMap(() => this.fetchCart())
     );
@@ -116,7 +118,7 @@ export class CartService
       tap({
         next: (cartLines) => {
           this.cartLines = cartLines || [];
-          this.cartSubject.next([...this.cartLines]);
+          this.cartSubject.next([...this.cartLines]); // broadcast the change to any subscribers
         },
         error: (err) => {
           console.error('Error fetching cart lines:', err);

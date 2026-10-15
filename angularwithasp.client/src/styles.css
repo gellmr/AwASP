@@ -358,7 +358,8 @@ button:focus-visible {
   text-align: left;
 }
 #adminLayout .storeBrand {
-  font-size: 16px;
+  padding-top: 2px;
+  font-size: 13px;
   color:white;
 }
 .responsiveScrollsRight {
@@ -451,6 +452,9 @@ th, td {
   margin-bottom: 13px;
   padding: 10px;
   background-color: #ffffffd6;
+
+  /* Reserve vertical height so cards never collapse during re-renders */
+  min-height: 140px;
 }
 /* PRODUCT TITLE, SLUG, AND CART BUTTONS */
 .inStockProductCanAdd .productDetailsFlex{
@@ -719,7 +723,18 @@ th, td {
     font-size: 20px;
   }
   #adminLayout .storeBrand {
-    font-size: 20px;
+    padding-top: 2px;
+    font-size: 15px;
+    /* color:lime !important; */
+  }
+}
+
+@media (min-width: 790px)
+{
+  #adminLayout .storeBrand {
+    padding-top: 3px;
+    font-size: 17px;
+    /* color:magenta !important; */
   }
 }
 
@@ -770,12 +785,6 @@ th, td {
   display:none;
 }
 
-@media (min-width: 350px) {
-  .hideInlineBlockXXs {
-    display: inline-block;
-  }
-}
-
 @media (min-width: 576px) {
   .useResponsiveLink {
     font-size: 12px;
@@ -785,6 +794,9 @@ th, td {
 @media (min-width: 708px) {
   .useResponsiveLink {
     font-size: 12px;
+  }
+  .hideInlineBlockXXs {
+    display: inline-block;
   }
 }
 

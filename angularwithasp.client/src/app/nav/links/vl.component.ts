@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
   styles: [`
     .vl {
       border-left: 1px solid rgb(65 93 135);
-      display: inline-block;
       margin-left: 3px;
       width: 2px;
     }

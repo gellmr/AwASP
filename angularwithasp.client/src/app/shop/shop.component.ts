@@ -42,8 +42,15 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   private cartSub = new Subscription();
 
-  ngOnInit() {
-    // Listen to changes in the route URL.
+  ngOnInit()
+  {
+    // We are using route reuse.
+    // If we navigate to a url that resolves to ShopComponent,
+    // then we DONT destroy and recreate the component.
+    // This means we dont lose all our member vars and registrations,
+    // we can just listen for the next handler firing on paramMap.
+
+    // Listen to changes in the route URL
     this.route.paramMap.subscribe(params => {
       const category = params.get('category'); // detect if the category changed, in the route url.
       const page = params.get('page');         // detect if the page changed, in the route url.
@@ -57,10 +64,19 @@ export class ShopComponent implements OnInit, OnDestroy {
       this.currPage = page ? parseInt(page, 10) : 1;
       this.myRoute = category ? `/category/${category}/` : '/';
       
+      // Now we can handle any search change...
+
       // Optimization: Avoid redundant HTTP calls if filters haven't changed
       if (category !== this.lastFetchedCategory || this.searchTerm !== this.lastFetchedSearchTerm || !this.gotItemsFromServer) {
+        // if we changed to a new category
+        // or we changed the search term
+        // or we simply have not loaded products yet
         this.fetchProducts(category);
       } else {
+        // - no category change
+        // - no search term change
+        // - already got some products
+        // User changed page. Load the slice of products for that page.
         this.sliceProductsForPage();
         this.cdr.markForCheck(); // Manually notify change detector for zoneless rendering optimization
       }
@@ -80,16 +96,19 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   handleSearchChange(term: string) {
     this.searchTerm = term;
-    if (this.currPage !== 1) {
-      // Reset back to page 1 on search change
-      const category = this.route.snapshot.paramMap.get('category');
+    const category = this.route.snapshot.paramMap.get('category');
+    // If user is not on page 1, and they are typing in the search field, we take them back to page 1.
+    if (this.currPage !== 1)
+    {
+      // Trigger navigation. We must wait for that to land (as a page change) before the search change can be handled.
       if (category) {
         this.router.navigate(['/category', category]);
       } else {
         this.router.navigate(['/']);
       }
     } else {
-      const category = this.route.snapshot.paramMap.get('category');
+      // Already on page 1, while user is typing in the search field.
+      // Handle the search change immediately...
       this.fetchProducts(category);
     }
   }
@@ -128,6 +147,11 @@ export class ShopComponent implements OnInit, OnDestroy {
         this.sliceProductsForPage();
         this.isLoading = false;
         this.cdr.markForCheck(); // Trigger view update under zoneless change detection
+        // Done with next handler.
+        // Execution in this thread will synchronously step out down the stack
+        // ...Angular/RxJS immediately calls complete()
+        // ...RxJS tears down the subscription and clears memory
+        // So we avoid piling up multiple attached http.get subscribe calls
       },
       error: (err) => {
         this.error = err;
@@ -135,5 +159,9 @@ export class ShopComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     });
+  }
+  
+  trackByProductId(index: number, product: any): number {
+    return product.id;
   }
 }

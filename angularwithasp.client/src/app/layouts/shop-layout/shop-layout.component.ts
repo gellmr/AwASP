@@ -12,16 +12,16 @@ import { filter } from 'rxjs/operators';
   standalone: true,
   imports: [CommonModule, RouterModule, SiteNavBarComponent, CategoriesMenuComponent],
   templateUrl: './shop-layout.component.html',
-  styleUrl: './shop-layout.component.css'
+  styleUrl:    './shop-layout.component.css'
 })
-export class ShopLayoutComponent implements OnInit, OnDestroy {
-  backCss: string = 'soccerBaseBg soccerBg1';
+export class ShopLayoutComponent implements OnInit, OnDestroy
+{
+  backCss: string            = 'soccerBaseBg soccerBg1';
   bgTransparentClass: string = 'shopLayoutTransparent bgRegularTransparent';
-  
-  private cartService = inject(CartService);
-  private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
-  private subscription = new Subscription();
+  private cartService        = inject(CartService);
+  private router             = inject(Router);
+  private cdr                = inject(ChangeDetectorRef);
+  private subscription       = new Subscription();
 
   get isGuestReady(): string {
     return this.cartService.getGuestId() ? 'true' : 'false';
