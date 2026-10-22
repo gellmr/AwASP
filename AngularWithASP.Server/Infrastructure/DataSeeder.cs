@@ -201,6 +201,7 @@ namespace AngularWithASP.Server.Infrastructure
         AppUsers = new List<AppUser> { vipAppUser }; _context.Users.Add(vipAppUser); _context.SaveChanges();
         appUserDTOs = _config.GetSection("users").Get<List<AppUserSeederDTO>>();
         for (int u = 0; u < (appUserDTOs?.Count ?? 0); u++) { SeedAppUsers(u); }
+        _context.SaveChanges();
       }
       catch (Exception ex)
       {
@@ -215,6 +216,7 @@ namespace AngularWithASP.Server.Infrastructure
         Orders = new List<Order>();
         orderDTOs = _config.GetSection("orders").Get<List<OrderSeederDTO>>();
         for (int oidx = 0; oidx < (orderDTOs?.Count ?? 0); oidx++) { SeedOrders(oidx); }
+        _context.SaveChanges();
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Orders] OFF;");
       }
       catch(Exception ex)
@@ -230,6 +232,7 @@ namespace AngularWithASP.Server.Infrastructure
         InStockProducts = new List<InStockProduct>();
         inStockDTOs = _config.GetSection("instockproducts").Get<List<InStockProductSeederDTO>>();
         for (int pIdx = 0; pIdx < (inStockDTOs?.Count ?? 0); pIdx++) { SeedInStockProducts(pIdx); }
+        _context.SaveChanges();
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[InStockProducts] OFF;");
       }
       catch (Exception ex)
@@ -245,6 +248,7 @@ namespace AngularWithASP.Server.Infrastructure
         OrderedProducts = new List<OrderedProduct>();
         orderedProductDTOs = _config.GetSection("orderedproducts").Get<List<OrderedProductSeederDTO>>();
         for (int idx = 0; idx < (orderedProductDTOs?.Count ?? 0); idx++) { SeedOrderedProduct(idx); }
+        _context.SaveChanges();
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[OrderedProducts] OFF;");
       }
       catch (Exception ex)
@@ -260,6 +264,7 @@ namespace AngularWithASP.Server.Infrastructure
         OrderPayments = new List<OrderPayment>();
         orderPaymentDTOs = _config.GetSection("orderpayments").Get<List<OrderPaymentSeederDTO>>();
         for (int idx = 0; idx < (orderPaymentDTOs?.Count ?? 0); idx++) { SeedOrderPayment(idx); }
+        _context.SaveChanges();
         await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[OrderPayments] OFF;");
       }
       catch (Exception ex)
@@ -330,7 +335,6 @@ namespace AngularWithASP.Server.Infrastructure
         Guests.Add(appUserId, guest); // record which AppUser this Guest belongs to
         _context.Guests.Add(guest);
       }
-      _context.SaveChanges();
     }
 
     private void SeedInStockProducts(int idx){
@@ -345,7 +349,6 @@ namespace AngularWithASP.Server.Infrastructure
       };
       InStockProducts.Add(prod);
       _context.InStockProducts.Add(prod);
-      _context.SaveChanges();
     }
 
     private static Nullable<DateTimeOffset> GetOrderDateTime(string input){
@@ -397,7 +400,6 @@ namespace AngularWithASP.Server.Infrastructure
       // Save the order
       Orders.Add(order);
       _context.Orders.Add(order);
-      _context.SaveChanges();
     }
 
     private void SeedOrderedProduct(int idx)
@@ -415,7 +417,6 @@ namespace AngularWithASP.Server.Infrastructure
       };
       OrderedProducts.Add(op);
       _context.OrderedProducts.Add(op);
-      _context.SaveChanges();
     }
 
     private void SeedOrderPayment(int idx)
@@ -433,7 +434,6 @@ namespace AngularWithASP.Server.Infrastructure
       };
       OrderPayments.Add(payment);
       _context.OrderPayments.Add(payment);
-      _context.SaveChanges();
     }
   }
 }
