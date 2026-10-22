@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewChild, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { SearchInputComponent }   from '../../search/search-input/search-input.component';
 import { CartService } from '../../services/cart.service';
 import { AdminTitleBarComponent } from '../admin-title-bar/admin-title-bar.component';
 import { DragDropUserPicModalComponent } from '../../drag-drop-user-pic-modal/drag-drop-user-pic-modal.component';
+import { PagLinksComponent } from '../admin-orders-pag/pag-links.component';
+import { PagedSearchComponent }   from '../paged-search.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-user-accounts',
@@ -12,57 +15,54 @@ import { DragDropUserPicModalComponent } from '../../drag-drop-user-pic-modal/dr
   imports: [
     CommonModule,
     RouterModule,
+    SearchInputComponent,
     AdminTitleBarComponent,
+    PagLinksComponent,
     DragDropUserPicModalComponent
   ],
   templateUrl: './admin-user-accounts.component.html',
   styleUrl: './admin-user-accounts.component.css'
 })
-export class AdminUserAccountsComponent implements OnInit {
+export class AdminUserAccountsComponent extends PagedSearchComponent
+{
   @ViewChild(DragDropUserPicModalComponent) modal!: DragDropUserPicModalComponent;
 
   userAccounts: any[] = [];
-  isLoading = false;
-  error: string | null = null;
-
-  private http = inject(HttpClient);
-  private router = inject(Router);
+  
   public cartService = inject(CartService);
-  private cdr = inject(ChangeDetectorRef);
 
+  override getRoutePrefix(): string[] {
+    return ['/admin/useraccounts'];
+  }
+
+  // Implement the API call specific to orders
+  override fetchData(page: number, search: string): Observable<any> {
+    let query = `?ps=${this.rowsPerPage}`;
+    if (search && search.trim()) {
+      query += `&bs=${encodeURIComponent(search.trim())}`;
+    }
+    return this.http.get<any>(`/api/admin-useraccounts/${page}${query}`);
+  }
+
+  // Implement how the response data is parsed and assigned
+  override processResponse(data: any): void {
+    this.userAccounts = data.users || [];
+    this.totResults = data.totalRows || 0;
+    this.totPages = Math.ceil(this.totResults / this.rowsPerPage);
+  }
+  
   get myUserId(): string | undefined {
     return this.cartService.user ? this.cartService.user.appUserId : undefined;
   }
 
-  ngOnInit() {
-    this.fetchAdminUserAccs();
+  // Returns only the N items for the current page
+  get paginatedUsers(): any[] {
+    return this.userAccounts;
   }
 
-  fetchAdminUserAccs() {
-    this.isLoading = true;
-    this.error = null;
-    this.cdr.markForCheck();
-
-    const url = '/api/admin-useraccounts';
-    this.http.get<any[]>(url).subscribe({
-      next: (data) => {
-        console.log('User accounts data fetched:', data);
-        this.userAccounts = data || [];
-        this.isLoading = false;
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Request failed:', err);
-        this.isLoading = false;
-        if (err.status === 401) {
-          console.log("Admin not logged in. Redirect to login...");
-          this.router.navigate(['/admin']);
-        } else {
-          this.error = err.error?.message || err.message || "Something went wrong";
-        }
-        this.cdr.markForCheck();
-      }
-    });
+  // eg 1,2,3 for the record in userAccounts
+  getSequenceNumber(index: number): number {
+    return (this.currPage - 1) * this.rowsPerPage + index + 1;
   }
 
   handleClickPhoto(idval: string, usertype: string) {

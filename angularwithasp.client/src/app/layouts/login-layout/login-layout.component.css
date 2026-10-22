@@ -1,1 +1,38 @@
-/* styles for LoginLayout */
+/* login-layout */
+
+.mgGoogleTokenErrSpan.d-block {
+  text-align: left;
+  font-size: 12px;
+  max-width: 173px;
+  padding-bottom: 11px;
+}
+
+.mgGoogleTokenErrSpan.d-sm-block {
+  text-align: right;
+  font-size: 12px;
+  max-width: 195px;
+}
+
+.mg-admin-login-form {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  max-width: 600px;
+}
+
+.mg-admin-login-form .btn {
+  font-size: 12px;
+}
+
+.mg-admin-login-form input {
+  font-size: 12px;
+}
+
+@media (min-width: 370px)
+{
+  .mg-admin-login-form .btn {
+    font-size: 15px;
+  }
+  .mg-admin-login-form input {
+    font-size: 15px;
+  }
+}

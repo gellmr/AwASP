@@ -1,1 +1,10 @@
 /* styles for AdminLogin */
+
+.loginErrStyle {
+  color: #8d8bbe;
+  font-size: 16px;
+  background-color: #f2f6ff;
+  background-color: #f4f8ff;
+  padding: 10px;
+  margin-bottom: 15px;
+}

@@ -14,3 +14,52 @@
     margin-top:8px;
     margin-bottom:8px;
 }
+
+/* Container positioning context for the loading overlay */
+.wrapTable {
+  position: relative;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* When loading is active, grey out and disable interaction */
+.wrapTable.is-loading {
+  opacity: 0.4;
+  pointer-events: none;   /* Prevents clicking rows while refreshing */
+  filter: grayscale(30%); /* Optional: adds a slight desaturated grey tint */
+}
+
+/* Centered overlay styles */
+.table-loading-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.mat-mdc-paginator-container{
+  justify-content: center !important;
+  font-size: 9px;
+}
+.mat-mdc-paginator-range-label{
+  margin-left:  11px !important;
+  margin-right: 7px !important;
+  background-color: rgb(241, 241, 241);
+  padding:4px;
+  padding-left: 6px; padding-right: 6px;
+  border-radius: 3px;
+}
+
+/* sm - small devices (landscape phones, 576px and up) */
+@media (min-width: 576px){
+  .mat-mdc-paginator-container{
+    font-size: 12px;
+  }
+}

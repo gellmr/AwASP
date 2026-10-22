@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { PaginationLinksComponent } from '../pagination-links/pagination-links.c
   standalone: true,
   imports: [CommonModule, RouterModule, MyOrdersShowAccountInfoComponent, PaginationLinksComponent],
   templateUrl: './my-orders.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './my-orders.component.css'
 })
 export class MyOrdersComponent implements OnInit, OnDestroy {
@@ -39,20 +40,28 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
   private sub = new Subscription();
 
   ngOnInit() {
-    this.sub.add(this.route.paramMap.subscribe(params => {
-      const pageParam = params.get('page');
-      this.currPage = pageParam ? parseInt(pageParam, 10) : 1;
-      
-      this.fetchOrders();
-    }));
+    this.sub.add(
+      this.route.data.subscribe({
+        next: ({ orderData }) => {
+          const pageParam = this.route.snapshot.paramMap.get('page');
+          this.currPage = pageParam ? parseInt(pageParam, 10) : 1;
+          
+          this.processOrdersData(orderData);
+        },
+        error: (err) => {
+          this.error = err;
+          this.isLoading = false;
+          this.cdr.markForCheck();
+        }
+      })
+    );
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
-  fetchOrders() {
-    // Only show loading state if we don't have orders cached yet.
+  processOrdersData(res: any) {
     if (this.orders.length === 0) {
       this.isLoading = true;
     }
@@ -65,57 +74,48 @@ export class MyOrdersComponent implements OnInit, OnDestroy {
       this.idval = guest.id;
     }
 
-    this.cartService.fetchMyOrders().subscribe({
-      next: (res) => {
-        this.orders = res.rows || [];
-
-        // Update Guest/User Info from the fetched orders if available
-        if (this.orders.length > 0) {
-          const firstOrder = this.orders[0];
-          if (firstOrder.guest) {
-            this.fullname = firstOrder.guest.fullName || firstOrder.guest.fullname || '';
-            this.email = firstOrder.guest.email || '';
-            this.idval = firstOrder.guest.id || '';
-            this.accType = 'Guest';
-            
-            // Sync it back to the global cart service guest so other components can use it
-            this.cartService.guest = {
-              id: this.idval,
-              fullname: this.fullname,
-              email: this.email,
-              firstname: firstOrder.guest.firstName || firstOrder.guest.firstname || '',
-              lastname: firstOrder.guest.lastName || firstOrder.guest.lastname || ''
-            };
-          } else if (firstOrder.appUser) {
-            this.fullname = firstOrder.appUser.fullName || firstOrder.appUser.fullname || '';
-            this.email = firstOrder.appUser.email || '';
-            this.idval = firstOrder.appUser.id || '';
-            this.accType = firstOrder.accountType || 'User';
-          }
-        }
-
-        const ordersPerPage = 3;
-        const ordersCount = this.orders.length;
-        const wholePages = Math.floor(ordersCount / ordersPerPage);
-        const extraLines = ordersCount % ordersPerPage;
-        const extraPage = (extraLines === 0 ? 0 : 1);
-        this.numPages = wholePages + extraPage || 1;
-
-        const pageIntP = (this.currPage > this.numPages) ? this.numPages : this.currPage;
-        const pageIdx = pageIntP - 1;
-        const startIdx = ordersPerPage * pageIdx;
-        const endIdx = startIdx + ordersPerPage;
-
-        this.ordersThisPage = this.orders.slice(startIdx, endIdx);
-        this.isLoading = false;
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        this.error = err;
-        this.isLoading = false;
-        this.cdr.markForCheck();
+    this.orders = res?.rows || [];
+    
+    // Update Guest/User Info from the fetched orders if available
+    if (this.orders.length > 0) {
+      const firstOrder = this.orders[0];
+      if (firstOrder.guest) {
+        this.fullname = firstOrder.guest.fullName || firstOrder.guest.fullname || '';
+        this.email = firstOrder.guest.email || '';
+        this.idval = firstOrder.guest.id || '';
+        this.accType = 'Guest';
+        
+        // Sync it back to the global cart service guest so other components can use it
+        this.cartService.guest = {
+          id: this.idval,
+          fullname: this.fullname,
+          email: this.email,
+          firstname: firstOrder.guest.firstName || firstOrder.guest.firstname || '',
+          lastname: firstOrder.guest.lastName || firstOrder.guest.lastname || ''
+        };
+      } else if (firstOrder.appUser) {
+        this.fullname = firstOrder.appUser.fullName || firstOrder.appUser.fullname || '';
+        this.email = firstOrder.appUser.email || '';
+        this.idval = firstOrder.appUser.id || '';
+        this.accType = firstOrder.accountType || 'User';
       }
-    });
+    }
+
+    const ordersPerPage = 3;
+    const ordersCount = this.orders.length;
+    const wholePages = Math.floor(ordersCount / ordersPerPage);
+    const extraLines = ordersCount % ordersPerPage;
+    const extraPage = (extraLines === 0 ? 0 : 1);
+    this.numPages = wholePages + extraPage || 1;
+
+    const pageIntP = (this.currPage > this.numPages) ? this.numPages : this.currPage;
+    const pageIdx = pageIntP - 1;
+    const startIdx = ordersPerPage * pageIdx;
+    const endIdx = startIdx + ordersPerPage;
+
+    this.ordersThisPage = this.orders.slice(startIdx, endIdx);
+    this.isLoading = false;
+    this.cdr.markForCheck();
   }
 
   addressSegment(seg: string, isFinal: boolean = false): string {

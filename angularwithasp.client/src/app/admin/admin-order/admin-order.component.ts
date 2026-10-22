@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,7 @@ import { BackLinkComponent } from '../../shop/back-link/back-link.component';
   standalone: true,
   imports: [CommonModule, RouterModule, AdminTitleBarComponent, BackLinkComponent],
   templateUrl: './admin-order.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './admin-order.component.css'
 })
 export class AdminOrderComponent implements OnInit, OnDestroy {

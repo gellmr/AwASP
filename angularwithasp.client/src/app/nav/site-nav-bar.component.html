@@ -1,0 +1,47 @@
+
+<nav class="navbar navbar-expand-sm bg-body-tertiary bg-dark" id="navBar" data-bs-theme="dark">
+  <div class="container" style="max-width:100%">
+    @if (withinAdmin && !isLoginRoute && cartService.user)
+    {
+      <!-- Admin Console Navigation -->
+      <app-hamburger style="width:100%;">
+        <div sitename>
+          <a [routerLink]="[linkTo]" class="storeBrand" style="text-decoration:none;">{{brandText}}</a>
+        </div>
+        <div inlined class="inlineLinks">
+          <app-resp-adminlinks customClass="inlineLink" [isLoggedIn]="cartService.user" (logout)="logoutAdmin($event)"></app-resp-adminlinks>
+        </div>
+        <div stacked class="d-block stackedLinks">
+          <app-resp-adminlinks customClass="stackedLink" [isLoggedIn]="cartService.user" (logout)="logoutAdmin($event)"></app-resp-adminlinks>
+        </div>
+      </app-hamburger>
+    }
+    @else if (isLoginRoute)
+    {
+      <!-- Admin Console - Login page -->
+      <app-hamburger style="width:100%;" [showHamBurger]="false">
+        <div sitename>
+          <a [routerLink]="[linkTo]" class="storeBrand" style="text-decoration:none;">{{brandText}}</a>
+        </div>
+        <div pullright class="inlineLinks">
+          <app-resp-loginlinks customClass="inlineLink"></app-resp-loginlinks>
+        </div>
+      </app-hamburger>
+    }
+    @else
+    {
+      <!-- Regular Storefront Navigation -->
+      <app-hamburger style="width:100%;">
+        <div sitename>
+          <a [routerLink]="[linkTo]" class="storeBrand" style="text-decoration:none;">{{brandText}}</a>
+        </div>
+        <div inlined class="inlineLinks">
+          <app-resp-shoplinks customClass="inlineLink" [isLoggedIn]="cartService.user" (logout)="logoutAdmin($event)" [cartQty]="cartQty" [ordersQty]="ordersQty"></app-resp-shoplinks>
+        </div>
+        <div stacked class="d-block stackedLinks">
+          <app-resp-shoplinks customClass="stackedLink" [isLoggedIn]="cartService.user" (logout)="logoutAdmin($event)" [cartQty]="cartQty" [ordersQty]="ordersQty"></app-resp-shoplinks>
+        </div>
+      </app-hamburger>
+    }
+  </div>
+</nav>

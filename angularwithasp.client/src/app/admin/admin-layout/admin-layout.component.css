@@ -1,1 +1,25 @@
-/* styles for AdminLayout */
+/* admin-layout */
+
+/* This must be at least 12px or we get a funny overscroll behaviour on the right hand side, for Admin Orders page. */
+#adminLayout { padding-left: 12px; padding-right: 12px; }
+
+#adminLayout nav{
+  background: 
+    radial-gradient(circle at 4% 0%, #223650 0%, transparent 30%), /* Layer 1 (Top): A radial circle placed in a corner that fades out */
+    linear-gradient(to right, #000000, #241e0d); /* Layer 2 (Bottom): A classic two-color linear gradient */
+
+  box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.15); /* Offset-X | Offset-Y | Blur-Radius | Spread-Radius | Color */
+  border-radius: 6px; /* Optional: Rounding the corners slightly softens the shadow effect */
+  margin-bottom: 7px;
+}
+
+#adminLayout table{
+  font-size:12px;
+}
+
+#adminLayout td{
+  padding:1px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  white-space: nowrap;
+}

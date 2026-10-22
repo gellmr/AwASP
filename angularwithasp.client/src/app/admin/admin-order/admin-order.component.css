@@ -1,5 +1,3 @@
-.adminParallaxOrders {
-}
 
 #adminLayout .adminParallaxOrders h4 {
   color: #272727;
@@ -102,6 +100,25 @@ button.accordion-button {
 
 #adminOrderPage .myAdminOrdDetailImageCell:last-child {
   padding-left: 0px;
+}
+
+tr:nth-child(even) {
+  background: #F2F2F2;
+}
+
+tr:nth-child(odd) {
+  background: #FFF;
+}
+
+th, td {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.shipAddy {
+  color: #707082;
+  font-size: 12px;
+  padding-right: 25px;
 }
 
 .mgFooter{

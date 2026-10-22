@@ -4,6 +4,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { guestInterceptor } from './interceptors/guest.interceptor';
+import { authInterceptor }  from './interceptors/auth.interceptor';
 import { CustomRouteReuseStrategy } from './route-reuse.strategy';
 
 export const appConfig: ApplicationConfig = {
@@ -18,7 +19,10 @@ export const appConfig: ApplicationConfig = {
 
     // Register the Angular http client, so we can make API requests.
     // Wires the guestInterceptor to inspect/modify outgoing http requests.
-    provideHttpClient(withInterceptors([guestInterceptor])),
+    provideHttpClient(withInterceptors([
+      guestInterceptor,
+      authInterceptor
+    ])),
 
     // Dont destroy + recreate route components every time we navigate.
     { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }

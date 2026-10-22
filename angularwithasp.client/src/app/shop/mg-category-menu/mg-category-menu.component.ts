@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './mg-category-menu.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './mg-category-menu.component.css'
 })
 export class MgCategoryMenuComponent {

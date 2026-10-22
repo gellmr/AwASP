@@ -7,6 +7,19 @@
       </div>
       <div class="col-12 text-center">
         
+        <!-- Pagination Top -->
+        <div class="adminProdsPagination">
+          <app-pag-links [length]="totResults" [totPages]="totPages" [currPage]="currPage" myRoute="/admin/products"></app-pag-links>
+        </div>
+
+        <div class="adminProductsSearchField">
+          <app-search-input
+            [initVal]="searchTerm" 
+            placeholder="Search" 
+            (parentHandleInputChange)="handleSearchChange($event)">
+          </app-search-input>
+        </div>
+
         <!-- Loading State -->
         <div *ngIf="isLoading" class="fetchErr text-center p-4">Loading...</div>
 
@@ -19,28 +32,31 @@
             <!-- LSPACE -->
           </div>
           <div class="col-12 col-lg-8 adminProductsAll">
-            
-            <div *ngFor="let prod of adminProducts" class="row adminProductRow align-items-center">
-              <!-- Large screen image -->
-              <div class="col-4 adminProductCell d-none d-sm-block adminProdImage">
-                <img [src]="prod.image" class="rounded img-fluid" alt="{{ prod.title }}" />
-              </div>
-              <!-- Content -->
-              <div class="col-12 col-sm-8">
-                <div class="row adminProductDetailsBox">
-                  <div class="col-4 adminProductCell font-weight-bold">Product ID</div>  <div class="col-8 adminProductCell">{{ prod.id }}</div>
-                  <div class="col-4 adminProductCell font-weight-bold">Title</div>       <div class="col-8 adminProductCell">{{ prod.title }}</div>
-                  <div class="col-4 adminProductCell font-weight-bold">Category</div>    <div class="col-8 adminProductCell">{{ prod.category }}</div>
-                  <div class="col-4 adminProductCell font-weight-bold">Price</div>       <div class="col-8 adminProductCell">{{ prod.price | number:'1.2-2' }}</div>
-                  <div class="col-4 adminProductCell font-weight-bold">Description</div> <div class="col-8 adminProductCell">{{ prod.description }}</div>
+            @for (prod of paginatedRecords; track prod.id)
+            {
+              <div class="row adminProductRow align-items-center">
+                <!-- Large screen image -->
+                <div class="col-4 adminProductCell d-none d-sm-block adminProdImage">
+                  <img [src]="prod.image" class="rounded img-fluid" alt="{{ prod.title }}" />
                 </div>
-              </div>
-              <!-- Small screen image -->
-              <div class="col-12 adminProductCell d-sm-none adminProdImage">
-                <img [src]="prod.image" class="rounded img-fluid" alt="{{ prod.title }}" />
-              </div>
-            </div>
-
+                <!-- Content -->
+                <div class="col-12 col-sm-8">
+                  <div class="row adminProductDetailsBox">
+                    <div class="col-4 adminProductCell font-weight-bold">Product ID</div>  <div class="col-8 adminProductCell">{{ prod.id }}</div>
+                    <div class="col-4 adminProductCell font-weight-bold">Title</div>       <div class="col-8 adminProductCell">{{ prod.title }}</div>
+                    <div class="col-4 adminProductCell font-weight-bold">Category</div>    <div class="col-8 adminProductCell">{{ prod.category }}</div>
+                    <div class="col-4 adminProductCell font-weight-bold">Price</div>       <div class="col-8 adminProductCell">{{ prod.price | number:'1.2-2' }}</div>
+                    <div class="col-4 adminProductCell font-weight-bold">Description</div> <div class="col-8 adminProductCell">{{ prod.description }}</div>
+                  </div>
+                </div>
+                <!-- Small screen image -->
+                <div class="col-12 adminProductCell d-sm-none adminProdImage">
+                  <img [src]="prod.image" class="rounded img-fluid" alt="{{ prod.title }}" />
+                </div>
+              </div>  
+            } @empty {
+              <!-- Optional empty state fallback -->
+            }
           </div>
           <div class="col-0 col-lg-2">
             <!-- RSPACE -->

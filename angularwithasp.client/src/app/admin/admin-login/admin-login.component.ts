@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { GoogleLoginCompComponent } from '../google-login-comp/google-login-comp
   standalone: true,
   imports: [CommonModule, FormsModule, GoogleLoginCompComponent],
   templateUrl: './admin-login.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './admin-login.component.css'
 })
 export class AdminLoginComponent implements OnInit {

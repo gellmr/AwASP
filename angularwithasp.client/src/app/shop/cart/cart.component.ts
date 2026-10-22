@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../services/cart.service';
@@ -11,6 +11,7 @@ import { ProceedCheckoutBtnComponent } from '../proceed-checkout-btn/proceed-che
   standalone: true,
   imports: [CommonModule, CartProductComponent, CartSummaryLineComponent, ProceedCheckoutBtnComponent],
   templateUrl: './cart.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit, OnDestroy {

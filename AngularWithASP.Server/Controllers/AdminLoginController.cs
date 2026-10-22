@@ -54,7 +54,7 @@ namespace AngularWithASP.Server.Controllers
     {
       try{
         await _signInManager.SignOutAsync();
-        return this.StatusCode(StatusCodes.Status200OK, "Successfully logged out");
+        return Ok(new { success = true });
       }
       catch(Exception ex)
       {

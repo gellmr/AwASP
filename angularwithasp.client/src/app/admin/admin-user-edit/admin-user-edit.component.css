@@ -45,10 +45,7 @@
   font-size: unset;
 }
 
-.adminUserEditRow.currUserRow {
-  background-color: #84c7fff7;
-  border: 1px solid #6fa9d973;
-}
+.adminUserEditRow.currUserRow{}
 
 .adminUserEditRow.currUserRow .adminUserEditDetailsBox .adminUserEditCell:first-child {
   font-weight: 500;

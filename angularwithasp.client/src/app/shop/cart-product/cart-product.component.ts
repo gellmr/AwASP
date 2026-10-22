@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, ViewEncapsulation, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 
@@ -7,6 +7,7 @@ import { CartService } from '../../services/cart.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './cart-product.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './cart-product.component.css'
 })
 export class CartProductComponent {

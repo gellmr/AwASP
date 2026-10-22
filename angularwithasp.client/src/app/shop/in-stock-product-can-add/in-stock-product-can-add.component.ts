@@ -1,4 +1,4 @@
-import { Component, Input, computed, inject} from '@angular/core';
+import { Component, Input, ViewEncapsulation, computed, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CartService } from '../../services/cart.service';
@@ -8,6 +8,7 @@ import { CartService } from '../../services/cart.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './in-stock-product-can-add.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './in-stock-product-can-add.component.css'
 })
 export class InStockProductCanAddComponent

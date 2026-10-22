@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { BackLinkComponent } from '../back-link/back-link.component';
   standalone: true,
   imports: [CommonModule, RouterModule, MyOrdersShowAccountInfoComponent, BackLinkComponent],
   templateUrl: './my-order-detail.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './my-order-detail.component.css'
 })
 export class MyOrderDetailComponent implements OnInit, OnDestroy {

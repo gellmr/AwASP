@@ -1,5 +1,4 @@
-.adminProductsParallax {
-}
+/* admin-products */
 
 #adminLayout .adminProductsParallax h4 {
   color: #272727;
@@ -8,6 +7,45 @@
   padding: 10px;
   padding-top: 10px;
   background: linear-gradient(to right, transparent, #ffffff38, transparent);
+}
+
+.adminProductsSearchField{
+  display: flex;
+  justify-content: center;
+  app-search-input{
+    width: 500px;
+  }
+}
+
+.adminProdsPagination{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.adminProductsAll {
+  background-color: #ffffff12;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+
+.adminProductRow {
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  text-align: left;
+  padding-left: 10px;
+  padding-bottom: 6px;
+  margin: 0px;
+  margin-bottom: 15px;
+  background-color: #ffffffde;
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.2));
+}
+
+.adminProductDetailsBox {
+  padding-top: 8px;
+  padding-bottom: 4px;
 }
 
 .adminProductCell {
@@ -33,4 +71,20 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+/* sm - small devices (landscape phones, 576px and up) */
+@media (min-width: 576px)
+{
+  .adminProductRow {
+    font-size: 14px;
+  }
+}
+
+/* md - medium devices (768px and up) */
+@media (min-width: 768px)
+{
+  .adminProductRow {
+    font-size: 17px;
+  }
 }

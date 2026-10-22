@@ -1,1 +1,9 @@
 /* styles for MgCategoryMenu */
+
+@media (min-width: 370px)
+{
+  .mg-category-menu-r {
+    display:flex;
+    width: 100%;
+  }
+}

@@ -1,4 +1,33 @@
+/* cart-product */
+
 .cartPicture {
   width: 60px;
 }
 
+.cartQtyXXs{
+  /* border: 3px dashed red; */
+  display:block!important;
+}
+
+.cartQtyXs {
+  /* border: 3px dashed gold; */
+  display: none !important;
+}
+
+@media (min-width: 370px)
+{
+  .cartQtyXXs {
+    display:none!important;
+  }
+  .cartQtyXs {
+    display: block !important;
+  }
+}
+
+/* sm - small devices (landscape phones, 576px and up) */
+@media (min-width: 576px)
+{
+  .cartQtyXs {
+    display: none !important;
+  }
+}

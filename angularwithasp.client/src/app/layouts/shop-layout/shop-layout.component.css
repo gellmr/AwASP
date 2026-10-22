@@ -1,1 +1,115 @@
-/* styles for ShopLayout */
+/* shop-layout */
+
+.soccerBaseBg {
+  background-repeat: no-repeat;
+  max-width: 1070px;
+}
+
+.soccerBg1 {
+  background-image: url("/bg/soccer-bgtallrev.jpg");
+}
+
+.soccerBg2 {
+  background-image: url("/bg/soccer-bg2.3.jpg");
+}
+
+.chessBg {
+  background-image: url("/bg/chess-bg8.jpg");
+}
+
+.kayakBg {
+  background-image: url("/bg/kayak-bg5revXsShort.jpg");
+  background-position-x: center;
+}
+
+.mg-category-menu-r.btn-group-vertical a {
+  text-align: left;
+  border-radius: 0px;
+}
+
+.mg-category-menu-r {
+  width: 100%;
+}
+
+.mg-category-menu-r a:last-child{
+  border-bottom-left-radius:2px;
+  border-bottom-right-radius:2px;
+}
+
+.mg-category-menu-r .active{
+  font-weight:600;
+}
+
+.mg-category-menu-r .btn{
+  background-color:rgba(248, 249, 250, 0.95);
+}
+
+.mg-category-menu-r .btn:hover{
+  background-color:rgba(211, 212, 213, 0.95);
+}
+
+.mg-category-menu-r .btn.active{
+  border: none;
+  background-image: linear-gradient(90deg, #afafaf2b, #afafaf24, transparent);
+}
+
+.mgImgThumb{
+  overflow-x: clip;
+}
+
+.mgImgThumb img {
+  border-radius: 7px;
+  width: 100%;
+  height: auto;
+  min-width: 90px;
+  max-width: 150px;
+}
+
+.shopLayoutTransparent {
+  padding-top: 15px;
+  padding-bottom: 12px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.shopLayoutTransparent.bgOrderFullTransparent {
+  background-color: transparent;
+}
+
+.shopLayoutTransparent.bgCartFullTransparent {
+  background-color: transparent;
+}
+
+.shopLayoutTransparent.bgRegularTransparent {
+  background-image: linear-gradient(to bottom, #ffffffad, transparent);
+}
+
+.shopLayoutTransparent.bgStrongTransparent {
+  background-image: linear-gradient(to bottom, #ffffffcc, transparent);
+}
+
+/* sm - small devices (landscape phones, 576px and up) */
+@media (min-width: 576px)
+{
+  .soccerBg1 {
+    background-size: contain;
+  }
+  .kayakBg {
+    background-image: url("/bg/kayak-bg5revXsTall.jpg");
+  }
+  .mg-category-menu-r {
+    width: 100%;
+  }
+  .mg-category-menu-r .btn.active {
+    background-image: unset;
+    background-color: #e3e3e3;
+  }
+}
+
+/* md - medium devices (768px and up) */
+@media (min-width: 768px)
+{
+  .chessBg {
+    background-image: url("/bg/chess-bg8.2.jpg");
+  }
+}

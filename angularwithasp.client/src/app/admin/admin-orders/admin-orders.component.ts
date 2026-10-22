@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Subscription, Subject, combineLatest, map } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, startWith, tap } from 'rxjs/operators';
-import { SearchInputComponent } from '../../search/search-input/search-input.component';
-import { PaginationLinksComponent } from '../../shop/pagination-links/pagination-links.component';
+import { RouterModule } from '@angular/router';
+import { SearchInputComponent }   from '../../search/search-input/search-input.component';
 import { AdminTitleBarComponent } from '../admin-title-bar/admin-title-bar.component';
+import { PagLinksComponent }      from '../admin-orders-pag/pag-links.component';
+import { PagedSearchComponent }   from '../paged-search.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-orders',
@@ -15,97 +14,39 @@ import { AdminTitleBarComponent } from '../admin-title-bar/admin-title-bar.compo
     CommonModule,
     RouterModule,
     SearchInputComponent,
-    PaginationLinksComponent,
+    PagLinksComponent,
     AdminTitleBarComponent
   ],
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './admin-orders.component.html',
   styleUrl: './admin-orders.component.css'
 })
-export class AdminOrdersComponent implements OnInit, OnDestroy {
+export class AdminOrdersComponent extends PagedSearchComponent
+{
   adminOrders: any[] = [];
-  error: string | null = null;
-  isLoading: boolean = false;
 
-  pageSize: number = 12;
-  currPage: number = 1;
-  totResults: number = 0;
-  numPages: number = 0;
-  backlogSearch: string = "";
-
-  private http = inject(HttpClient);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private cdr = inject(ChangeDetectorRef);
-  private sub = new Subscription();
-
-  private searchSubject = new Subject<string>(); // stream of search inputs
-
-  ngOnInit() {
-
-    // stream for route params like page change, triggers search subscription
-    this.sub.add(
-      combineLatest([
-        this.route.paramMap.pipe(map(params => params.get('page'))),
-        this.searchSubject.pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
-          startWith('')
-        )
-      ]).pipe(
-        tap(() => {
-          this.isLoading = true;
-          this.error = null;
-          this.cdr.markForCheck();
-        }),
-        switchMap( map => {
-            let pageStr = map[0];
-            let searchTerm = map[1];
-            this.currPage = pageStr ? parseInt(pageStr, 10) : 1;
-            this.backlogSearch = searchTerm;
-            
-            let query = `?ps=${this.pageSize}`;
-            if (this.backlogSearch && this.backlogSearch.trim()) {
-              query += `&bs=${encodeURIComponent(this.backlogSearch.trim())}`;
-            }
-            const url = `/api/admin-orders/${this.currPage}${query}`;
-            return this.http.get<any>(url);
-          }
-        )
-      ).subscribe({
-        next: (data) => {
-          this.adminOrders = data.orders || [];
-          this.totResults = this.adminOrders.length > 0 ? this.adminOrders[0].totalRows : 0;
-          this.numPages = Math.ceil(this.totResults / this.pageSize);
-          this.isLoading = false;
-          this.cdr.markForCheck();
-        },
-        error: (err) => {
-          this.isLoading = false;
-          if (err.status === 401) {
-            console.log("Admin not logged in. Redirect to login...");
-            this.router.navigate(['/admin']);
-          } else {
-            this.error = err.error?.errMessage || "Something went wrong";
-          }
-          this.cdr.markForCheck();
-        }
-      })
-    );
+  // Define the base route prefix used when resetting to page 1 on search
+  override getRoutePrefix(): string[] {
+    return ['/admin/orders'];
   }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
-  handleSearchChange(str: string) {
-    if (this.currPage !== 1) {
-      this.router.navigate(['/admin/orders', 1]);
+  
+  // Implement the API call specific to orders
+  override fetchData(page: number, search: string): Observable<any> {
+    let query = `?ps=${this.rowsPerPage}`;
+    if (search && search.trim()) {
+      query += `&bs=${encodeURIComponent(search.trim())}`;
     }
-    this.searchSubject.next(str); // Feed string into the reactive pipeline
+    return this.http.get<any>(`/api/admin-orders/${page}${query}`);
   }
 
-  handleClickBacklogRow(orderid: number) {
+  // Implement how the response data is parsed and assigned
+  override processResponse(data: any): void {
+    this.adminOrders = data.orders || [];
+    this.totResults = this.adminOrders.length > 0 ? this.adminOrders[0].totalRows : 0;
+    this.totPages = Math.ceil(this.totResults / this.rowsPerPage);
+  }
+  
+  handleClickedRow(orderid: number) {
     this.router.navigate(['/admin/order', orderid]);
   }
 }
-

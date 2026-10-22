@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-12 adminCont adminParallax adminUserAccountsParallax">
+    <div class="row">
+      <div class="col-12"><app-admin-title-bar titleText="Product Sales" [construction]="false"></app-admin-title-bar></div>
+      <div class="col-12">
+        <div class="row g-3">
+          
+          <div class="col-12 col-xl-8">
+            <div class="card p-3 bg-dark shadow text-white">
+              <h5 class="card-title">Total Revenue (Past 12 mo)</h5>
+              <canvas #revenueBarChart></canvas>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-4">
+            <div class="card p-3 bg-dark shadow text-white">
+              <h5 class="card-title">Revenue Share</h5>
+              <canvas #revenuePieChart></canvas>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-8">
+            <div class="card p-3 bg-dark shadow text-white">
+              <h5 class="card-title">Quantity Sold (Past 12 mo)</h5>
+              <canvas #quantityBarChart></canvas>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-4">
+            <div class="card p-3 bg-dark shadow text-white">
+              <h5 class="card-title">Quantity Share</h5>
+              <canvas #quantityPieChart></canvas>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -73,11 +73,14 @@ namespace AngularWithASP.Server.Controllers.Admin
       }
     }
 
-    [HttpGet("admin-useraccounts")]
-    public ActionResult GetUserAccounts()
+    [HttpGet("admin-useraccounts/{page:int?}")]
+    public ActionResult GetUserAccounts(int page = 1, [FromQuery] int ps = 10, [FromQuery] string? bs = null)
     {
       try
       {
+        if (page < 1) page = 1;
+        if (ps < 1) ps = 10;
+
         // Grab the current user id from claims of the currently logged in user.
         string currentUserId = (User.Identity.IsAuthenticated) ? User.FindFirstValue(ClaimTypes.NameIdentifier) : string.Empty;
 
@@ -111,7 +114,25 @@ namespace AngularWithASP.Server.Controllers.Admin
           .. appUsers, // Show users
         ];
 
-        return Ok(allUsers);
+        // Apply search filter if search term is provided
+        if (!string.IsNullOrEmpty(bs))
+        {
+          string term = bs.Trim().ToLower();
+          allUsers = allUsers.Where(u => 
+            (u.FullName != null && u.FullName.ToLower().Contains(term)) ||
+            (u.Email != null && u.Email.ToLower().Contains(term)) ||
+            (u.UserName != null && u.UserName.ToLower().Contains(term))
+          ).ToList();
+        }
+        int totalRows = allUsers.Count;
+
+        // Apply pagination slice in memory
+        var pagedUsers = allUsers
+          .Skip((page - 1) * ps)
+          .Take(ps)
+          .ToList();
+
+        return Ok(new { users = pagedUsers, totalRows = totalRows });
       }
       catch (Exception ex)
       {

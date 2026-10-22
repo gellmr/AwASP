@@ -1,19 +1,26 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { InStockProductCanAddComponent } from './in-stock-product-can-add/in-stock-product-can-add.component';
 import { PaginationLinksComponent } from './pagination-links/pagination-links.component';
-import { ProductSearchBoxComponent } from './product-search-box/product-search-box.component';
+import { SearchInputComponent } from '../search/search-input/search-input.component';
 import { ProceedCartBtnComponent } from './proceed-cart-btn/proceed-cart-btn.component';
 import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, InStockProductCanAddComponent, PaginationLinksComponent, ProductSearchBoxComponent, ProceedCartBtnComponent],
+  imports: [
+    CommonModule,
+    InStockProductCanAddComponent,
+    PaginationLinksComponent,
+    SearchInputComponent,
+    ProceedCartBtnComponent
+  ],
   templateUrl: './shop.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './shop.component.css'
 })
 export class ShopComponent implements OnInit, OnDestroy {

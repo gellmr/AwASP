@@ -1,0 +1,13 @@
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" *ngIf="totPages > 1">
+  <div class="btn-group me-2" role="group" aria-label="Pagination group">
+    
+    <mat-paginator
+      [length]="length"
+      [pageSize]="windowSize"
+      [pageIndex]="currPage -1"
+      [pageSizeOptions]="[10]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+
+  </div>
+</div>

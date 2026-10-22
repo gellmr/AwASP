@@ -1,1 +1,88 @@
 /* styles for MyOrderDetail */
+
+.myOrderDetailLines {
+  height: 1160px;
+  margin-top:10px;
+}
+
+#myOrdDetailPage {
+  font-size: 11px;
+}
+
+.myOrdDetailIspTitle {
+  font-size:9px;
+}
+
+.myOrdDetailImageHead {
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  background-color: #ffffffd6;
+  padding-bottom: 5px;
+}
+
+.myOrdDetailRow {
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-left: 30px;
+  text-align: left;
+  margin-bottom: 7px;
+}
+
+#myOrdDetailPage .myOrdDetailImageBody {
+  padding-top:10px;
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  background-color: #ffffffd6;
+}
+
+#myOrdDetailPage .myOrdDetailImageRow {
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+#myOrdDetailPage .myOrdDetailImageCell b {
+  font-weight: 600;
+}
+
+#myOrdDetailPage .myOrdDetailImageCell .mgLight {
+  font-weight: 400;
+  color: #616161;
+}
+
+#myOrdDetailPage .myOrdDetailImageCell:first-child {
+  padding-left: 25px;
+  font-weight: 600;
+}
+
+#myOrdDetailPage .myOrdDetailImageCell:last-child {
+  padding-left: 0px;
+}
+
+/* custom breakpoint */
+@media (min-width: 370px)
+{
+  #myOrdDetailPage {
+    font-size: 12px;
+  }
+}
+
+/* sm - small devices (landscape phones, 576px and up) */
+@media (min-width: 576px)
+{
+  #myOrdDetailPage {
+    font-size: 13px;
+  }
+  .myOrdDetailIspTitle {
+    font-size: 11px;
+  }
+}
+
+/* md - medium devices (768px and up) */
+@media (min-width: 768px)
+{
+  #myOrdDetailPage {
+    font-size: 14px;
+  }
+}

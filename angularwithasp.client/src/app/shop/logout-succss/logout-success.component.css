@@ -1,0 +1,13 @@
+/* styles for logout-success */
+
+.logoutThanks{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.continShopBtn{
+  margin-bottom: 450px;
+}

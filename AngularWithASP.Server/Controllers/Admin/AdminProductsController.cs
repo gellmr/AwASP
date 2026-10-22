@@ -14,13 +14,34 @@ namespace AngularWithASP.Server.Controllers.Admin
       prodRepo = pRepo;
     }
 
-    [HttpGet("admin-products")]
-    public ActionResult GetProducts()
+    [HttpGet("admin-products/{page:int?}")]
+    public ActionResult GetProducts(int page = 1, [FromQuery] int ps = 10, [FromQuery] string? bs = null)
     {
       try
       {
-        IEnumerable<InStockProduct> prods = prodRepo.InStockProducts.ToList();
-        return Ok(prods);
+        if (page < 1) page = 1;
+        if (ps < 1) ps = 10;
+
+        var query = prodRepo.InStockProducts;
+        
+        // Apply search filter if search term is provided
+        if (!string.IsNullOrEmpty(bs)){
+          string term = bs.Trim().ToLower();
+          query = query.Where(u => 
+            (u.Description != null && u.Description.ToLower().Contains(term)) ||
+            (u.Title       != null &&       u.Title.ToLower().Contains(term))
+          );
+        }
+
+        int totalRows = query.Count();
+
+        // Apply pagination slice and execute the query at the very end
+        var pagedProds = query
+          .Skip((page - 1) * ps)
+          .Take(ps)
+          .ToList();
+
+        return Ok(new { prods = pagedProds, totalRows = totalRows });
       }
       catch (Exception ex){
         return this.StatusCode(StatusCodes.Status400BadRequest, ex.Message);

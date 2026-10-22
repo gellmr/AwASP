@@ -1,16 +1,92 @@
 /* styles for Cart */
 
-.cartTitle{
-    /* border: 3px dashed purple; */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+.cartTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.cartFooter
+.cartFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.proceedCheckoutBar {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.proceedCheckoutBar .btn {
+  font-size: 13px;
+}
+
+.cartContents {
+  border-radius: 5px;
+}
+
+.inCartProd {
+  display:flex;
+  justify-content:center;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.inCartProd .innerRow {
+  border: 1px solid lightgrey;
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  padding-right:0px;
+  padding-left:0px;
+  background-color: #ffffffd6;
+}
+
+.inCartProd button {
+  float: right;
+  width: 85px;
+  font-size: 14px;
+}
+
+.inCartItemText {
+  text-align: left;
+}
+
+.inCartItemText p{
+  font-size:13px;
+}
+
+.inCartItemRemove{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.inCartItemRemove .btn-group{
+  max-width:130px;
+}
+
+.inCartItemRemove .btn-group button:disabled{
+  background-color:red !important;
+}
+
+.cartLineSubInfoBottom {
+  color: #637183;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: flex-end;
+  padding-bottom: 4px;
+  padding-left: 0px;
+  font-size: 12px;
+}
+
+/* sm - small devices (landscape phones, 576px and up) */
+@media (min-width: 576px)
 {
-    /* border:3px dashed green; */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  .proceedCheckoutBar .btn {
+    font-size: 15px;
+  }
 }

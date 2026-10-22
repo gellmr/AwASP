@@ -1,8 +1,11 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AdminTitleBarComponent } from '../admin-title-bar/admin-title-bar.component';
+import { SearchInputComponent }   from '../../search/search-input/search-input.component';
+import { PagedSearchComponent }   from '../paged-search.component';
+import { Observable } from 'rxjs';
+import { PagLinksComponent }      from '../admin-orders-pag/pag-links.component';
 
 @Component({
   selector: 'app-admin-products',
@@ -10,49 +13,38 @@ import { AdminTitleBarComponent } from '../admin-title-bar/admin-title-bar.compo
   imports: [
     CommonModule,
     RouterModule,
+    PagLinksComponent,
+    SearchInputComponent,
     AdminTitleBarComponent
   ],
   templateUrl: './admin-products.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl: './admin-products.component.css'
 })
-export class AdminProductsComponent implements OnInit {
+export class AdminProductsComponent extends PagedSearchComponent
+{
   adminProducts: any[] = [];
-  isLoading = false;
-  error: string | null = null;
 
-  private http = inject(HttpClient);
-  private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
-
-  ngOnInit() {
-    this.fetchAdminProducts();
+  override getRoutePrefix(): string[] {
+    return ['/admin/products'];
+  }
+  
+  override fetchData(page: number, search: string): Observable<any> {
+    let query = `?ps=${this.rowsPerPage}`;
+    if (search && search.trim()) {
+      query += `&bs=${encodeURIComponent(search.trim())}`;
+    }
+    return this.http.get<any>(`/api/admin-products/${page}${query}`);
   }
 
-  fetchAdminProducts() {
-    this.isLoading = true;
-    this.error = null;
-    this.cdr.markForCheck();
-
-    const url = '/api/admin-products';
-    this.http.get<any[]>(url).subscribe({
-      next: (data) => {
-        console.log('Products fetched:', data);
-        this.adminProducts = data || [];
-        this.isLoading = false;
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Fetch products failed:', err);
-        this.isLoading = false;
-        if (err.status === 401) {
-          console.log("Admin not logged in. Redirect to login...");
-          this.router.navigate(['/admin']);
-        } else {
-          this.error = err.error?.message || err.message || 'Something went wrong';
-        }
-        this.cdr.markForCheck();
-      }
-    });
+  override processResponse(data: any): void {
+    this.adminProducts = data.prods || [];
+    this.totResults = data.totalRows || 0;
+    this.totPages = Math.ceil(this.totResults / this.rowsPerPage);
+  }
+  
+  // Returns only the N items for the current page
+  get paginatedRecords(): any[] {
+    return this.adminProducts;
   }
 }
-

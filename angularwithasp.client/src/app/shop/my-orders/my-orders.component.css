@@ -4,3 +4,79 @@
   display: flex;
   justify-content: center;
 }
+
+.myOrdersLines{
+  height:1160px;
+}
+
+.myOrdersRect {
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  background-color: #ffffffd6;
+  font-size: 11px;
+}
+
+.myOrdRow {
+  margin-top: 5px;
+  padding-top: 5px;
+  padding-left: 30px;
+  text-align: left;
+  margin-bottom: 7px;
+}
+
+.myOrdRow .row div:last-child {
+  padding-right: 25px;
+}
+
+.myOrdersHeadInfo .myOrdRow .row div:first-child {
+  font-weight:500;
+}
+
+.guid {
+  color: #5d62c1;
+  color: #9b9cb8;
+}
+
+.ordersEmptyMsg {
+  color: #4872a0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 15px;
+  padding-top:0px;
+}
+
+.ordersEmptyMsg div {
+  margin-bottom:9px;
+}
+
+/* custom breakpoint */
+@media (min-width: 370px)
+{
+  .myOrdersRect {
+    font-size: 11px;
+  }
+}
+
+
+/* sm - small devices (landscape phones, 576px and up) */
+@media (min-width: 576px)
+{
+  .myOrdersRect {
+    font-size: 12px;
+    /*color: orange;*/
+  }
+  .shipToDetail {
+    /*color:lime;*/
+    padding-right: 35px !important;
+  }
+}
+
+/* md - medium devices (768px and up) */
+@media (min-width: 768px)
+{
+  .myOrdersRect {
+    font-size: 13px;
+  }
+}

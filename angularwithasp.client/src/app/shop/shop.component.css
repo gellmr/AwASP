@@ -1,7 +1,11 @@
-/* styles for Shop */
+/* styles for shop */
 
-.cartPageCenter{
+.shopPageCenter{
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.shopSearchResult {
+  min-height: 670px;
 }

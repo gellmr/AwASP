@@ -9,3 +9,71 @@
   aspect-ratio: 1 / 1;
   object-fit: contain;
 }
+
+.inStockProductCanAdd {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 13px;
+  margin-bottom: 13px;
+  padding: 10px;
+  background-color: #ffffffd6;
+  /* Reserve vertical height so cards never collapse during re-renders */
+  min-height: 140px;
+}
+
+.inStockProductCanAdd .productDetailsFlex{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.inStockProductCanAdd .productDetailsFlex .productDetails {
+  display:block;
+  text-align:left;
+  overflow-y:hidden;
+  overflow-x:hidden;
+}
+
+.inStockProductCanAdd .productDetailsFlex .productDetails span {
+  font-size: 12px;
+}
+
+.inStockProductCanAdd .productDetailsFlex .productDetails .inStockPrice {
+  padding-left: 2px;
+  font-size: 18px;
+  color: #75a9da;
+  font-weight: 500;
+}
+
+.flexContAddToCart {
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+
+.inStockProductCanAdd .productDetailsFlex .btn-group {
+  height:38px;
+  min-width:100px;
+  font-size:13px;
+  align-self: flex-end;
+}
+
+.inStockProductCanAdd .productDetailsFlex button {
+  font-size:10px;
+}
+
+.currentlyAdded:disabled {
+  background-color:white;
+  border: 1px solid #e9f6ef !important;
+  width: 42px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #252525;
+  padding-top: 7px;
+  margin-right: 2px;
+}
+
+.currentlyAdded:disabled:hover{
+  background-color:white;
+  border: 1px solid #e9f6ef;
+  color:black;
+}

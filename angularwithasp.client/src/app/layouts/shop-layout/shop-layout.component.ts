@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
-import { SiteNavBarComponent } from '../../nav/site-nav-bar/site-nav-bar.component';
+import { SiteNavBarComponent } from '../../nav/site-nav-bar.component';
 import { CategoriesMenuComponent } from '../../shop/categories-menu/categories-menu.component';
 import { CartService } from '../../services/cart.service';
 import { Subscription, combineLatest } from 'rxjs';
@@ -12,6 +12,7 @@ import { filter } from 'rxjs/operators';
   standalone: true,
   imports: [CommonModule, RouterModule, SiteNavBarComponent, CategoriesMenuComponent],
   templateUrl: './shop-layout.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrl:    './shop-layout.component.css'
 })
 export class ShopLayoutComponent implements OnInit, OnDestroy
@@ -22,15 +23,15 @@ export class ShopLayoutComponent implements OnInit, OnDestroy
   private router             = inject(Router);
   private cdr                = inject(ChangeDetectorRef);
   private subscription       = new Subscription();
-
-  get isGuestReady(): string {
-    return this.cartService.getGuestId() ? 'true' : 'false';
-  }
+  public isGuestReady: string = 'false';
 
   ngOnInit() {
     // Bootstrap the shopping cart and session state sequentially
     this.subscription.add(
-      this.cartService.init().subscribe()
+      this.cartService.init().subscribe(() => {
+        this.isGuestReady = this.cartService.getGuestId() ? 'true' : 'false';
+        this.cdr.markForCheck();
+      })
     );
 
     // 1. Subscribe to Router NavigationEnd to update styling based on active URL

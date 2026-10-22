@@ -1,7 +1,13 @@
-<app-product-search-box [searchTerm]="searchTerm" (searchChange)="handleSearchChange($event)"></app-product-search-box>
+
+
+<app-search-input 
+  [initVal]="searchTerm" 
+  placeholder="Search for products" 
+  (parentHandleInputChange)="handleSearchChange($event)">
+</app-search-input>
 
 <div class="shopSearchResult">
-  <app-pagination-links class="cartPageCenter" [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
+  <app-pagination-links class="shopPageCenter" [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
 
   <div *ngIf="isLoading" class="fetchErr">
     <div class="spinner-border spinner-border-sm" role="status">
@@ -22,9 +28,9 @@
     <app-in-stock-product-can-add *ngFor="let prod of inStockProdThisPage; trackBy: trackByProductId" [product]="prod"></app-in-stock-product-can-add>
   </ng-container>
 
-  <app-pagination-links class="cartPageCenter" [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
+  <app-pagination-links class="shopPageCenter" [numPages]="numPages" [currPage]="currPage" [myRoute]="myRoute"></app-pagination-links>
   
-  <div class="cartPageCenter" *ngIf="gotItems" style="margin-top: 20px;">
+  <div class="shopPageCenter" *ngIf="gotItems" style="margin-top: 20px;">
     <app-proceed-cart-btn></app-proceed-cart-btn>
   </div>
 </div>
