@@ -17,6 +17,9 @@ Write-Host " GCP Redeploy Script" -ForegroundColor Cyan
 Write-Host " Project ID: $ProjectId" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 
+# Ensure we target the correct GCP project...
+gcloud config set project $ProjectId
+
 # 1. Parse required secrets
 Write-Host "`nReading secrets from $SecretsFile..."
 $DbPassword = $null
